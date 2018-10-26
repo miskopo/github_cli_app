@@ -2,6 +2,8 @@ from os import environ
 
 from .common.InvalidAPIKeyException import InvalidAPIKeyException
 from .logger import logger
+import github
+from os.path import dirname
 
 
 def load_api_key():
@@ -25,7 +27,7 @@ def load_api_key():
     else:
         return api_key
     try:
-        with open('../api_key') as key_file:
+        with open('{}/../api_key'.format(dirname(github.__file__))) as key_file:
             api_key = key_file.readline().strip()
             if not api_key or len(api_key) != 40:
                 raise InvalidAPIKeyException

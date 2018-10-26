@@ -63,7 +63,8 @@ class GithubController:
         """
         with post(self.api_endpoint, json=list_repositories,
                   headers={"Authorization": "bearer {}".format(self.api_key)}) as response:
-            if response.ok:
+            logger.debug("Response status code: {}".format(response.status_code))
+            if response.ok and loads(response.text)['data']:
                 total_number_of_repositories = loads(response.text)['data']['viewer']['repositories']['totalCount']
                 logger.debug("Total number of repositories obtainable: {}".format(total_number_of_repositories))
                 repositories_dict = loads(response.text)['data']['viewer']['repositories']['edges']
@@ -74,4 +75,8 @@ class GithubController:
                         repositories_dict[i]['node']['url'])
                     for i in range(total_number_of_repositories)
                 ]
+            else:
+                logger.error("Error occurred, response status code {}, message {}".format(response.status_code,
+                                                                                          loads(response.text)['errors']
+                                                                                                ))
 

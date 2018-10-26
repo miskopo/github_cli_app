@@ -123,3 +123,56 @@
 2018-10-26 16:00:36,246; github; DEBUG;	__main__.py;       	 Spawning github ctl
 2018-10-26 16:00:36,246; github; DEBUG;	authentication.py;       	 Obtained API key from file
 2018-10-26 16:00:37,296; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-26 16:42:38,224; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:42:38,225; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:42:38,226; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:42:38,226; github; ERROR;	authentication.py;       	 API key file not found
+2018-10-26 16:42:38,226; github; WARNING;	github_controller.py;       	 'api_key' file missing in project root. Please, create the file and add your API key to it
+2018-10-26 16:43:32,956; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:43:32,958; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:43:32,958; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:43:32,959; github; ERROR;	authentication.py;       	 API key file not found
+2018-10-26 16:43:32,959; github; WARNING;	github_controller.py;       	 'api_key' file missing in project root. Please, create the file and add your API key to it
+2018-10-26 16:43:59,627; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:43:59,629; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:43:59,629; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:43:59,630; github; DEBUG;	authentication.py;       	 Obtained API key from file
+2018-10-26 16:45:51,466; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:45:51,469; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:45:51,471; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:45:51,472; github; DEBUG;	authentication.py;       	 Obtained API key from file
+2018-10-26 16:45:52,457; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 16:46:33,753; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:46:33,755; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:46:33,756; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:46:33,757; github; DEBUG;	authentication.py;       	 Obtained API key from file
+2018-10-26 16:46:34,579; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 16:46:34,579; github; DEBUG;	github_controller.py;       	 {"data":null,"errors":[{"message":"You must provide a `first` or `last` value to properly paginate the `repositories` connection.","locations":[{"line":1,"column":12}]}]}
+2018-10-26 16:47:22,317; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:47:22,319; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:47:22,320; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:47:22,321; github; DEBUG;	authentication.py;       	 Obtained API key from file
+2018-10-26 16:47:23,267; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 16:48:16,627; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:48:16,629; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:48:16,629; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:48:16,630; github; DEBUG;	authentication.py;       	 Obtained API key from file
+2018-10-26 16:48:17,443; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 16:48:17,443; github; ERROR;	github_controller.py;       	 Error occurred, response status code 200
+2018-10-26 16:49:01,050; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:49:01,052; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:49:01,052; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:49:01,053; github; DEBUG;	authentication.py;       	 Obtained API key from file
+2018-10-26 16:49:01,899; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 16:49:19,476; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:49:19,477; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:49:19,478; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:49:19,479; github; DEBUG;	authentication.py;       	 Obtained API key from file
+2018-10-26 16:49:20,327; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 16:49:20,327; github; ERROR;	github_controller.py;       	 Error occurred, response status code 200, message [{'message': 'You must provide a `first` or `last` value to properly paginate the `repositories` connection.', 'locations': [{'line': 1, 'column': 12}]}]
+2018-10-26 16:49:39,282; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 16:49:39,284; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 16:49:39,285; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 16:49:39,286; github; DEBUG;	authentication.py;       	 Obtained API key from file
+2018-10-26 16:49:40,127; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 16:49:40,128; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
