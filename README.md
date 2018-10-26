@@ -4,6 +4,7 @@
 ![GitHub](https://img.shields.io/github/license/miskopo/github_cli_app.svg)
 ![Platform](https://img.shields.io/badge/platform-linux-%23FCC624.svg?logo=linux)
 ![Python versions](https://img.shields.io/badge/python-3.4|3.5|3.6|3.7-3776AB.svg?logo=python)
+![GitHub repo size in bytes](https://img.shields.io/github/repo-size/miskopo/github_cli_app.svg)
 
 Ever wanted to browse your repos through CLI? Or create a new one without the hassle of opening the browser? Now you can!
 
@@ -16,7 +17,7 @@ Focus of this project is on simplicity - arguments are intuitive and provided as
 #### Requirements :rocket:
 All you have to do (except installing this application, of course) is to register you API key within Github. To do so, navigate to your settings and choose `Developer settings`.
 There, in `Personal access tokens` section, create new token with full rights (you can actually omit rights you know you don't want to use). Copy this token and save it to file 
-`api_key` in project directory. **Beware, make sure no one shady gains access to it, as this key enables anyone to do anything with your Github account**
+`api_key` in project directory. **Beware, make sure no one shady gains access to it, as this key enables anyone to do anything with your Github account.**
 
 ### Features :construction:
 (thick marks implemented features)
