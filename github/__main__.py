@@ -8,7 +8,8 @@ def main():
     args = init_args()
     logger.debug(args)
     logger.debug("Spawning github ctl")
-    github_ctl = GithubController()
+    github_ctl = GithubController(args)
+    github_ctl()
 
 
 if __name__ == '__main__':
