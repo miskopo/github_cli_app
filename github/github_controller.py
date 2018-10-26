@@ -22,22 +22,24 @@ class GithubController:
         self.obtain_api_key()
         self.process_args()
 
-    def obtain_api_key(self):
+    def obtain_api_key(self) -> bool:
         """
-        Method reads API key from 'api_key' file in the project root and saves it into class attribute
+        Method invokes 'load_api_key' function and saves obtained API key into class attribute
 
-        :return: None, API key is saved into class attribute api_key
-        :raise: FileNotFoundError in case the 'api_key' file is missing completely
-        :raise: InvalidAPIKeyException in case the 'api_key' file exist, but is either missing the API key
+        # TODO: Long desc
+        :return: True, if the API key was successfully saved into class attribute, False otherwise
+
         or the API key is malformed
         """
         try:
             self.api_key = load_api_key()
+            return True
         except FileNotFoundError:
             logger.warning("'api_key' file missing in project root. Please, create the file and add your API key to it")
             return False
         except InvalidAPIKeyException:
-            logger.warning("'api_key' file present, but it's either missing the key or the key is malformed")
+            logger.warning("Environmental variable 'GITHUB_API_KEY' or 'api_key' file present, "
+                           "but it's either missing the key or the key is malformed")
             return False
 
     def process_args(self):
