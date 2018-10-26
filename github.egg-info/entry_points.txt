@@ -1,0 +1,3 @@
+[console_scripts]
+github = github.__main__:main
+
