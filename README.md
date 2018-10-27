@@ -22,7 +22,8 @@ There, in `Personal access tokens` section, create new token with full rights (y
 
 ### Features :construction:
 (thick marks implemented features)
-- [ ] list-my-repos
+- [x] list-my-repositories
+- [x] list-user-repositories USERNAME
 - [ ] create-new-repo
 
 more to come!
