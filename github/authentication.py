@@ -11,7 +11,10 @@ def load_api_key():
     Function loads Github API key either from environmental variable 'GITHUB_API_KEY' or from file 'api_key' in
     project's root.
 
-    # TODO: Long desc
+    Functions checks for system environmental variable called 'GITHUB_API_KEY' and if it exists, it checks whether this
+    variable is correct. If so, it's returned. If no 'GITHUB_AIP_KEY' variable is found, function looks for file
+    'api_key' in the project's root directory. In case it's found, its content is loaded anc checked. If everything is
+    all-right, value is returned. If not, exception is raised.
     :return: API key, if it was successfully obtained
     :raise: FileNotFoundError in case the 'api_key' file is missing completely
     :raise: InvalidAPIKeyException in case the 'api_key' file exist, but is either missing the API key
