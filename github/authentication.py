@@ -1,9 +1,9 @@
 from os import environ
+from os.path import dirname
 
+import github
 from .common.InvalidAPIKeyException import InvalidAPIKeyException
 from .logger import logger
-import github
-from os.path import dirname
 
 
 def load_api_key():

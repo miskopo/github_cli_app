@@ -1,7 +1,9 @@
 README.md
 github/__init__.py
 github/__main__.py
+github/argparser.py
 github/authentication.py
+github/github_controller.py
 github/logger.py
 github.egg-info/PKG-INFO
 github.egg-info/SOURCES.txt

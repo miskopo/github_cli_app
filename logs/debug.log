@@ -176,3 +176,98 @@
 2018-10-26 16:49:39,286; github; DEBUG;	authentication.py;       	 Obtained API key from file
 2018-10-26 16:49:40,127; github; DEBUG;	github_controller.py;       	 Response status code: 200
 2018-10-26 16:49:40,128; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-26 20:19:52,492; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 20:19:52,493; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 20:19:52,493; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 20:19:52,493; github; ERROR;	authentication.py;       	 API key file not found
+2018-10-26 20:19:52,493; github; WARNING;	github_controller.py;       	 'api_key' file missing in project root. Please, create the file and add your API key to it
+2018-10-26 20:19:53,133; github; DEBUG;	github_controller.py;       	 Response status code: 401
+2018-10-26 20:20:26,569; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 20:20:26,569; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 20:20:26,570; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 20:20:27,713; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 20:20:27,714; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-26 20:23:45,401; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 20:23:45,402; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 20:23:45,424; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 20:23:45,424; github; WARNING;	github_controller.py;       	 Environmental variable 'GITHUB_API_KEY' or 'api_key' file present, but it's either missing the key or the key is malformed
+2018-10-26 20:24:13,172; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 20:24:13,173; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 20:24:13,173; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 20:24:13,952; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 20:24:13,952; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-26 21:36:36,223; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 21:36:36,234; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 21:36:36,234; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 21:36:37,386; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 21:36:37,387; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-26 21:53:46,044; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-26 21:53:46,044; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-26 21:53:46,045; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-26 21:53:46,675; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-26 21:53:46,677; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:44:06,025; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:44:06,025; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-27 12:44:06,025; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:44:06,658; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:44:06,659; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:46:01,291; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:46:01,291; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, url_only=False)
+2018-10-27 12:46:01,291; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:46:01,915; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:46:01,916; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:47:16,422; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:47:16,422; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, url_only=False)
+2018-10-27 12:47:16,422; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:47:17,036; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:47:17,037; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:47:31,751; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:47:31,752; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, url_only=False)
+2018-10-27 12:47:31,752; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:47:32,369; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:47:32,370; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:47:48,501; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:47:48,502; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, url_only=False)
+2018-10-27 12:47:48,502; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:47:49,150; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:47:49,151; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:49:27,528; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:49:27,529; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, url_only=False)
+2018-10-27 12:49:27,529; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:49:28,247; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:49:28,248; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:49:33,017; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:49:33,017; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, url_only=True)
+2018-10-27 12:49:33,017; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:49:33,641; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:49:33,642; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:53:20,578; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:53:20,578; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, no_numbers=False, url_only=True)
+2018-10-27 12:53:20,579; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:53:21,200; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:53:21,201; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:53:26,081; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:53:26,081; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, no_numbers=True, url_only=True)
+2018-10-27 12:53:26,082; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:53:26,698; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:53:26,699; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:54:06,020; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:54:06,021; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, no_numbers=True, url_only=True)
+2018-10-27 12:54:06,021; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:54:06,662; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:54:06,663; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:55:06,311; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:55:06,311; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=True, no_numbers=True, url_only=True)
+2018-10-27 12:55:06,311; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:55:06,945; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:55:06,946; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:55:10,599; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:55:10,599; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, no_numbers=False, url_only=False)
+2018-10-27 12:55:10,599; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:55:11,223; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:55:11,225; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 12:55:16,409; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 12:55:16,410; github; DEBUG;	__main__.py;       	 Namespace(action=['list-my-repositories'], https=False, no_numbers=True, url_only=False)
+2018-10-27 12:55:16,410; github; DEBUG;	__main__.py;       	 Spawning github ctl
+2018-10-27 12:55:17,142; github; DEBUG;	github_controller.py;       	 Response status code: 200
+2018-10-27 12:55:17,143; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11

@@ -12,6 +12,10 @@ arg_parser.add_argument("--url_only",
 arg_parser.add_argument("--https",
                         help="Show HTTPS URL instead of SSH",
                         action="store_true")
+arg_parser.add_argument("--no_numbers",
+                        help="Disables number printing in lists",
+                        action="store_true")
+
 
 
 def init_args():

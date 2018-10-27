@@ -4,13 +4,12 @@ from requests import post
 
 from .api_forms.repositories import list_repositories
 from .authentication import load_api_key
+from .cli_printer import CLIPrinter
 from .common.InvalidAPIKeyException import InvalidAPIKeyException
 from .logger import logger
 
 
 class GithubController:
-    # TODO: Implement print function
-
     __slots__ = 'api_key', 'args'
     api_endpoint = 'https://api.github.com/graphql'
 
@@ -19,7 +18,8 @@ class GithubController:
         self.args = args
 
     def __call__(self, *args, **kwargs):
-        self.obtain_api_key()
+        if not self.obtain_api_key():
+            return False
         self.process_args()
 
     def obtain_api_key(self) -> bool:
@@ -51,7 +51,7 @@ class GithubController:
         for arg in self.args.action:
             # TODO: Investigate
             if arg in actions_dict.keys():
-                actions_dict[arg]()
+                CLIPrinter.out(actions_dict[arg](), self.args)
 
     # Repositories operations
 
@@ -70,13 +70,13 @@ class GithubController:
                 repositories_dict = loads(response.text)['data']['viewer']['repositories']['edges']
                 return [
                     (
-                        repositories_dict[i]['node']['name'],
-                        repositories_dict[i]['node']['sshUrl'],
-                        repositories_dict[i]['node']['url'])
+                        repositories_dict[i]['node']['name'] if not self.args.url_only else "",
+                        repositories_dict[i]['node']['sshUrl'] if not self.args.https else "",
+                        repositories_dict[i]['node']['url'] if self.args.https else "")
                     for i in range(total_number_of_repositories)
                 ]
             else:
                 logger.error("Error occurred, response status code {}, message {}".format(response.status_code,
                                                                                           loads(response.text)['errors']
-                                                                                                ))
+                                                                                          ))
 
