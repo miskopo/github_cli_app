@@ -494,3 +494,18 @@
 2018-10-27 16:19:27,836; github; DEBUG;	__main__.py;       	 Spawning github ctl
 2018-10-27 16:19:28,455; github; DEBUG;	github_controller.py;       	 Response status code: 200
 2018-10-27 16:19:28,456; github; DEBUG;	github_controller.py;       	 Total number of repositories obtainable: 11
+2018-10-27 16:24:25,941; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:28:20,638; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:28:49,683; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:29:07,401; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:30:31,958; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:31:26,797; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:31:36,934; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:32:27,465; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:33:23,718; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:36:20,931; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:39:27,169; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:40:21,049; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:40:39,694; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:41:59,817; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI
+2018-10-27 16:44:02,588; github; DEBUG;	__main__.py;       	 Obtaining arguments from CLI

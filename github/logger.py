@@ -1,5 +1,6 @@
 from logging import getLogger, DEBUG, StreamHandler, Formatter, FileHandler
 from os.path import dirname
+from sys import stdout
 
 import github
 
@@ -9,7 +10,7 @@ logger = getLogger('github')
 logger.setLevel(DEBUG)
 
 # create console handler
-console_debug_handler = StreamHandler()
+console_debug_handler = StreamHandler(stream=stdout)
 console_debug_handler.setLevel(DEBUG)
 file_debug_handler = FileHandler('{}/../logs/debug.log'.format(dirname(github.__file__)))
 file_debug_handler.setLevel(DEBUG)

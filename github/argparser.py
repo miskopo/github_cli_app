@@ -17,6 +17,5 @@ arg_parser.add_argument("--no_numbers",
                         action="store_true")
 
 
-
 def init_args():
     return arg_parser.parse_args()
