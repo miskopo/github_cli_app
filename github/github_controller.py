@@ -1,4 +1,4 @@
-from json import loads, load
+from json import loads
 
 from requests import post
 
@@ -7,12 +7,14 @@ from .authentication import load_api_key
 from .cli_printer import CLIPrinter
 from .common.InvalidAPIKeyException import InvalidAPIKeyException
 from .common.InvalidNumberOfArgumentsException import InvalidNumberOfArgumentsException
+from .common.deprecated_decorator import deprecated
 from .logger import logger
 
 
 class GithubController:
     __slots__ = 'api_key', 'args'
-    api_endpoint = 'https://api.github.com/graphql'
+    graphql_api_endpoint = 'https://api.github.com/graphql'
+    rest_api_base_url = 'https://api.github.com'
 
     def __init__(self, args):
         self.api_key = None
@@ -64,7 +66,7 @@ class GithubController:
         :param json_data: json to be sent
         :return: API response
         """
-        with post(self.api_endpoint, json=json_data,
+        with post(self.graphql_api_endpoint, json=json_data,
                   headers={"Authorization": "bearer {}".format(self.api_key)}) as response:
             logger.debug("Response status code: {}".format(response.status_code))
             if response.ok and loads(response.text)['data']:
@@ -90,6 +92,7 @@ class GithubController:
             for edge in repositories_dict
         ]
 
+    @deprecated
     def list_my_repositories(self) -> [(str, str, str)]:
         """
         List all repositories of the current user (authenticated by API key)
@@ -102,6 +105,7 @@ class GithubController:
         repositories_dict = loads(response.text)['data']['viewer']['repositories']['edges']
         return self.general_repositories_output_returner(repositories_dict)
 
+    @deprecated
     def list_user_list_repositories(self):
         """
         Lists repositories of selected user
