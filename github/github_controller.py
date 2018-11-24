@@ -2,7 +2,7 @@ from json import loads
 
 from requests import post
 
-from .api_forms.repositories import list_repositories, ql_list_user_repositories as list_user_repositories
+from .queries.repositories import list_repositories, list_user_repositories
 from .authentication import load_api_key
 from .cli_printer import CLIPrinter
 from .common.InvalidAPIKeyException import InvalidAPIKeyException
@@ -80,6 +80,7 @@ class GithubController:
                 finally:
                     return None
 
+    # TODO: Make this decorator
     def general_repositories_output_returner(self, repositories_dict) -> [(str, str, str)]:
         """
         Common return method for repositories listing methods.
@@ -102,7 +103,7 @@ class GithubController:
 
         :return: list of repositories in tuples (name, sshUrl, url)
         """
-        response = self.general_repositories_request(list_repositories)
+        response = self.general_repositories_request(list_repositories.__dict__())
         total_number_of_repositories = loads(response.text)['data']['viewer']['repositories']['totalCount']
         logger.debug("Total number of repositories obtainable: {}".format(total_number_of_repositories))
         repositories_dict = loads(response.text)['data']['viewer']['repositories']['edges']

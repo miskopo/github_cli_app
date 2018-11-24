@@ -1,11 +1,8 @@
-list_repositories = {
-    'query':
-        '{ '
-        'viewer { '
-        'repositories (first: 50) { '
-        'totalCount pageInfo { hasNextPage endCursor } edges { node { name url sshUrl} } } } '
-        '}'
-}
+from .graphQL_query import GraphQLQuery
+
+query = '{ repositories (first: 50) { totalCount pageInfo { endCursor } edges { node { name url sshUrl} } } }'
+list_repositories = GraphQLQuery(query)
+
 
 list_user_repositories = {
     'query':
@@ -41,20 +38,6 @@ ql_list_user_repositories = {
             }
         }
     },
-    'variables': {'username': ""}
+    'variables': {'username': "cathelyn"}
 }
 
-ql_list_repositories = {
-    'query': {
-        'viewer': {
-            'repositories(first: 30)': {
-                'edges': {
-                    'node': {
-                        'name'
-                    }
-                }
-            }
-        }
-    },
-    'variables': {'username': ""}
-}
