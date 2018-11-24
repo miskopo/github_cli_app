@@ -2,12 +2,11 @@ from json import loads
 
 from requests import post
 
-from .api_forms.repositories import list_repositories, list_user_repositories
+from .api_forms.repositories import list_repositories, ql_list_user_repositories as list_user_repositories
 from .authentication import load_api_key
 from .cli_printer import CLIPrinter
 from .common.InvalidAPIKeyException import InvalidAPIKeyException
 from .common.InvalidNumberOfArgumentsException import InvalidNumberOfArgumentsException
-from .common.deprecated_decorator import deprecated
 from .logger import logger
 
 
@@ -72,9 +71,14 @@ class GithubController:
             if response.ok and loads(response.text)['data']:
                 return response
             else:
-                logger.error("Error occurred, response status code {}, message {}".format(response.status_code,
-                                                                                          loads(response.text)['errors']
-                                                                                          ))
+                try:
+                    logger.error("Error occurred, response status code {}, message {}".format(response.status_code,
+                                                                                              loads(response.text)['errors']
+                                                                                              ))
+                except KeyError:
+                    logger.error(response.text)
+                finally:
+                    return None
 
     def general_repositories_output_returner(self, repositories_dict) -> [(str, str, str)]:
         """
@@ -92,7 +96,6 @@ class GithubController:
             for edge in repositories_dict
         ]
 
-    @deprecated
     def list_my_repositories(self) -> [(str, str, str)]:
         """
         List all repositories of the current user (authenticated by API key)
@@ -105,7 +108,6 @@ class GithubController:
         repositories_dict = loads(response.text)['data']['viewer']['repositories']['edges']
         return self.general_repositories_output_returner(repositories_dict)
 
-    @deprecated
     def list_user_list_repositories(self):
         """
         Lists repositories of selected user
@@ -118,19 +120,22 @@ class GithubController:
         if len(self.args.action) != 2:
             raise InvalidNumberOfArgumentsException()
         # I am truly sorry for the replace, right now I can't think of anything else
-        list_user_repositories['query'] = list_user_repositories['query'].replace("username_placeholder",
-                                                                                  self.args.action[1])
-        response = self.general_repositories_request(list_user_repositories)
+        # list_user_repositories['query'] = list_user_repositories['query'].replace("username_placeholder",
+        #                                                                           self.args.action[1])
+        list_user_repositories['variables']['username'] = self.args.action[1]
+        logger.debug(list_user_repositories)
+        response = self.general_repositories_request(str(list_user_repositories))
         # isn't it weird that you get status 200 even in case of error?
-        try:
-            error_message = loads(response.text)['errors']
-            logger.error(error_message)
-            return "Github replies: {}".format(error_message)
-        except KeyError:
-            pass
-        total_number_of_repositories = loads(response.text)['data']['user']['repositories']['totalCount']
-        logger.debug("Total number of repositories obtainable: {}".format(total_number_of_repositories))
-        repositories_dict = loads(response.text)['data']['user']['repositories']['edges']
-        return self.general_repositories_output_returner(repositories_dict)
+        if response:
+            try:
+                error_message = loads(response.text)['errors']
+                logger.error(error_message)
+                return "Github replies: {}".format(error_message)
+            except KeyError:
+                pass
+            total_number_of_repositories = loads(response.text)['data']['user']['repositories']['totalCount']
+            logger.debug("Total number of repositories obtainable: {}".format(total_number_of_repositories))
+            repositories_dict = loads(response.text)['data']['user']['repositories']['edges']
+            return self.general_repositories_output_returner(repositories_dict)
 
 
