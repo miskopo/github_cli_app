@@ -51,7 +51,7 @@ class GithubController:
         """
         actions_dict = {
             'list-my-repositories': self.list_my_repositories,
-            'list-user-repositories' : self.list_user_list_repositories
+            'list-user-repositories': self.list_user_list_repositories
         }
         for arg in self.args.action:
             # TODO: Investigate

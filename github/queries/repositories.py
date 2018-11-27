@@ -1,7 +1,7 @@
-from .graphQL_query import GraphQLQuery
+from .graphQL_query import ViewerQuery
 
 query = '{ repositories (first: 50) { totalCount pageInfo { endCursor } edges { node { name url sshUrl} } } }'
-list_repositories = GraphQLQuery(query)
+list_repositories = ViewerQuery({'repositories': ['name', 'url', 'sshUrl']})
 
 
 list_user_repositories = {
