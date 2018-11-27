@@ -1,17 +1,4 @@
-from abc import ABC
-
-
-class GraphQLQuery(ABC):
-    __slots__ = 'payload', 'variables', 'query'
-
-    def __str__(self):
-        pass
-
-    def __dict__(self):
-        return {'query': self.query}
-
-
-class ViewerQuery(GraphQLQuery):
+class ViewerQuery:
 
     def __init__(self, payload: dict):
         self.payload = payload
@@ -22,8 +9,11 @@ class ViewerQuery(GraphQLQuery):
             f'{{ endCursor }} edges {{ node {{ {" ".join(item for item in list(self.payload.values())[0])} ' \
             f'}} }} }} }} }}'
 
+    def __dict__(self):
+        return {'query': self.query}
 
-class UserQuery(GraphQLQuery):
+
+class UserQuery:
     def __init__(self, payload: dict, username: str = None):
         self.payload = payload
         self._username = username
@@ -44,3 +34,6 @@ class UserQuery(GraphQLQuery):
             f'{{ totalCount pageInfo ' \
             f'{{ endCursor }} edges {{ node {{ {" ".join(item for item in list(self.payload.values())[0])} ' \
             f'}} }} }} }} }}'
+
+    def __dict__(self):
+        return {'query': self.query}
