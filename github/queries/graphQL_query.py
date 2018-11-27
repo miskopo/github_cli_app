@@ -1,4 +1,5 @@
 class ViewerQuery:
+    __slots__ = 'payload', 'query'
 
     def __init__(self, payload: dict):
         self.payload = payload
@@ -14,6 +15,8 @@ class ViewerQuery:
 
 
 class UserQuery:
+    __slots__ = 'payload', '_username', 'query'
+
     def __init__(self, payload: dict, username: str = None):
         self.payload = payload
         self._username = username
