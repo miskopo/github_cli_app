@@ -2,18 +2,16 @@ from json import loads
 
 from requests import post
 
-from .queries.repositories import list_repositories, list_user_repositories
+from queries.graphQL_query import ViewerQuery, UserQuery
 from .authentication import load_api_key
 from .cli_printer import CLIPrinter
-from .common.InvalidAPIKeyException import InvalidAPIKeyException
-from .common.InvalidNumberOfArgumentsException import InvalidNumberOfArgumentsException
+from .common import InvalidAPIKeyException, InvalidNumberOfArgumentsException
 from .logger import logger
 
 
 class GithubController:
     __slots__ = 'api_key', 'args'
     graphql_api_endpoint = 'https://api.github.com/graphql'
-    rest_api_base_url = 'https://api.github.com'
 
     def __init__(self, args):
         self.api_key = None
@@ -28,7 +26,6 @@ class GithubController:
         """
         Method invokes 'load_api_key' function and saves obtained API key into class attribute
 
-        # TODO: Long desc
         :return: True, if the API key was successfully saved into class attribute, False otherwise
 
         or the API key is malformed
@@ -44,6 +41,29 @@ class GithubController:
                            "but it's either missing the key or the key is malformed")
             return False
 
+    @staticmethod
+    def check_response(response) -> bool:
+        """
+        Method checks for error message in response, as github return 200 even in case of error
+        :param response: response to be checked
+        :return: True if there is no error in response, False otherwise
+        """
+        if response:
+            if response.ok:
+                try:
+                    loads(response.text)['data']
+                except (TypeError, KeyError):
+                    pass
+                else:
+                    return True
+            try:
+                error_message = loads(response.text)['errors']
+                logger.error(error_message)
+            except (TypeError, KeyError):
+                return True
+            else:
+                return False
+
     def process_args(self):
         """
 
@@ -54,41 +74,10 @@ class GithubController:
             'list-user-repositories': self.list_user_list_repositories
         }
         for arg in self.args.action:
-            # TODO: Investigate
             if arg in actions_dict.keys():
                 CLIPrinter.out(actions_dict[arg](), self.args)
 
-    # Repositories operations
-    def general_repositories_request(self, json_data):
-        """
-        Common method for repositories listing request
-        :param json_data: json to be sent
-        :return: API response
-        """
-        with post(self.graphql_api_endpoint, json=json_data,
-                  headers={"Authorization": "bearer {}".format(self.api_key)}) as response:
-            logger.debug("Response status code: {}".format(response.status_code))
-            if response.ok and loads(response.text)['data']:
-                return response
-            else:
-                try:
-                    logger.error("Error occurred, response status code {}, message {}".format(response.status_code,
-                                                                                              loads(response.text)['errors']
-                                                                                              ))
-                except KeyError:
-                    logger.error(response.text)
-                finally:
-                    return None
-
-    # TODO: Make this decorator
-    def general_repositories_output_returner(self, repositories_dict) -> [(str, str, str)]:
-        """
-        Common return method for repositories listing methods.
-
-        Method packs provided results of queries into list of tuples (name, sshUrl, url)
-        :param repositories_dict: 'edges' part of the API response
-        :return:
-        """
+    def output_list_packer(self, repositories_dict) -> [(str, str, str)]:
         return [
             (
                 edge['node']['name'] if not self.args.url_only else "",
@@ -97,46 +86,41 @@ class GithubController:
             for edge in repositories_dict
         ]
 
-    def list_my_repositories(self) -> [(str, str, str)]:
+    def send_request(self, json_data):
         """
-        List all repositories of the current user (authenticated by API key)
+        Common method for repositories listing request
+        :param json_data: json to be sent
+        :return: API response
+        """
+        with post(self.graphql_api_endpoint, json=json_data,
+                  headers={"Authorization": "bearer {}".format(self.api_key)}) as response:
+            logger.debug("Response status code: {}".format(response.status_code))
+            if self.check_response(response):
+                return response
+            else:
+                return None
 
-        :return: list of repositories in tuples (name, sshUrl, url)
-        """
-        response = self.general_repositories_request(list_repositories.__dict__())
-        total_number_of_repositories = loads(response.text)['data']['viewer']['repositories']['totalCount']
-        logger.debug("Total number of repositories obtainable: {}".format(total_number_of_repositories))
-        repositories_dict = loads(response.text)['data']['viewer']['repositories']['edges']
-        return self.general_repositories_output_returner(repositories_dict)
+    def list_my_repositories(self):
+        list_repositories = ViewerQuery({'repositories': ['name', 'url', 'sshUrl']})
+        list_repositories.construct_query()
+        response = self.send_request(list_repositories.__dict__())
+        if self.check_response(response):
+            return self.output_list_packer(loads(response.text)['data']['viewer']['repositories']['edges'])
+        else:
+            return f"GitHub replies: {loads(response.text)['errors']}"
 
     def list_user_list_repositories(self):
-        """
-        Lists repositories of selected user
 
-        Method sends request for repositories of user provided in argument after 'list-user-repositories' keyword.
-        In case this user does not exist, method returns error message from Github.
-        :return: list of repositories in tuples (name, sshUrl, url) for selected user or Github's error message in case
-        of failure
-        """
         if len(self.args.action) != 2:
             raise InvalidNumberOfArgumentsException()
-        # I am truly sorry for the replace, right now I can't think of anything else
-        # list_user_repositories['query'] = list_user_repositories['query'].replace("username_placeholder",
-        #                                                                           self.args.action[1])
-        list_user_repositories['variables']['username'] = self.args.action[1]
-        logger.debug(list_user_repositories)
-        response = self.general_repositories_request(str(list_user_repositories))
-        # isn't it weird that you get status 200 even in case of error?
-        if response:
-            try:
-                error_message = loads(response.text)['errors']
-                logger.error(error_message)
-                return "Github replies: {}".format(error_message)
-            except KeyError:
-                pass
-            total_number_of_repositories = loads(response.text)['data']['user']['repositories']['totalCount']
-            logger.debug("Total number of repositories obtainable: {}".format(total_number_of_repositories))
-            repositories_dict = loads(response.text)['data']['user']['repositories']['edges']
-            return self.general_repositories_output_returner(repositories_dict)
+
+        list_user_repositories = UserQuery({'repositories': ['name', 'url', 'sshUrl']}, username=self.args.action[1])
+        list_user_repositories.construct_query()
+
+        response = self.send_request(list_user_repositories.__dict__())
+        if self.check_response(response):
+            return self.output_list_packer(loads(response.text)['data']['user']['repositories']['edges'])
+        else:
+            return f"GitHub replies: {loads(response.text)['errors']}"
 
 

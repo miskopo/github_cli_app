@@ -2,7 +2,7 @@ from os import environ
 from os.path import dirname
 
 import github
-from .common.InvalidAPIKeyException import InvalidAPIKeyException
+from .common import InvalidAPIKeyException
 from .logger import logger
 
 
