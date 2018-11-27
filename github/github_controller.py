@@ -20,15 +20,13 @@ class GithubController:
     def __call__(self, *args, **kwargs):
         if not self.obtain_api_key():
             return False
-        self.process_args()
+        return self.process_args()
 
     def obtain_api_key(self) -> bool:
         """
         Method invokes 'load_api_key' function and saves obtained API key into class attribute
 
         :return: True, if the API key was successfully saved into class attribute, False otherwise
-
-        or the API key is malformed
         """
         try:
             self.api_key = load_api_key()
@@ -58,20 +56,27 @@ class GithubController:
         else:
             return False, "No response"
 
-    def process_args(self):
+    def process_args(self) -> bool:
         """
+        Method executes function assigned to argument provided by user
 
-        :return:
+        :return: True if the execution was successful, False otherwise
         """
         actions_dict = {
             'list-my-repositories': self.list_my_repositories,
             'list-user-repositories': self.list_user_list_repositories
         }
-        for arg in self.args.action:
-            if arg in actions_dict.keys():
-                CLIPrinter.out(actions_dict[arg](), self.args)
+        if self.args.action[0] in actions_dict.keys():
+            CLIPrinter.out(actions_dict[self.args.action[0]](), self.args)
+            return True
+        return False
 
-    def output_list_packer(self, repositories_dict) -> [(str, str, str)]:
+    def repositories_output_list_packer(self, repositories_dict) -> [(str, str, str)]:
+        """
+        Method packs output from repository listing into list of tuples (name, sshUrl, url) respecting provided flags
+        :param repositories_dict: dictionary of edges from response
+        :return: list of tuples (name, sshUrl, url) for each repository
+        """
         return [
             (
                 edge['node']['name'] if not self.args.url_only else "",
@@ -95,15 +100,24 @@ class GithubController:
                 raise ValueError(f"{self.check_response(response)[1]}")
 
     def list_my_repositories(self):
+        """
+        Methods lists repositories of current user authenticated by API key
+
+        :return: List of repositories or error response in case of error
+        """
         list_repositories = ViewerQuery({'repositories': ['name', 'url', 'sshUrl']})
         list_repositories.construct_query()
         try:
             response = self.send_request(list_repositories.__dict__())
-            return self.output_list_packer(loads(response.text)['data']['viewer']['repositories']['edges'])
+            return self.repositories_output_list_packer(loads(response.text)['data']['viewer']['repositories']['edges'])
         except ValueError as e:
             return str(e)
 
     def list_user_list_repositories(self):
+        """
+        Method lists repositories of user provided in argument
+        :return: List of user's repositories or error response in case of error (e.g. wrong username)
+        """
 
         if len(self.args.action) != 2:
             raise InvalidNumberOfArgumentsException()
@@ -112,7 +126,7 @@ class GithubController:
         list_user_repositories.construct_query()
         try:
             response = self.send_request(list_user_repositories.__dict__())
-            return self.output_list_packer(loads(response.text)['data']['user']['repositories']['edges'])
+            return self.repositories_output_list_packer(loads(response.text)['data']['user']['repositories']['edges'])
         except ValueError as e:
             return str(e)
 
