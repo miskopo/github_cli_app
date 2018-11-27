@@ -5,12 +5,14 @@ class CLIPrinter:
 
     @staticmethod
     def out(data_to_print, args):
-        if type(data_to_print) == list:
+        if isinstance(data_to_print, list):
             for i, list_item in enumerate(data_to_print):
-                not args.no_numbers and print("{}{}.{}".format(Fore.GREEN, i+1, Fore.RESET))
-                if type(list_item) == list or type(list_item) == tuple:
+                if not args.no_numbers:
+                    print(f"{Fore.GREEN}{i+1}{ Fore.RESET}")
+                if isinstance(list_item, list) or isinstance(list_item, tuple):
                     for list_item_sub_item in list_item:
-                        list_item_sub_item and print(list_item_sub_item)
+                        if list_item_sub_item:
+                            print(list_item_sub_item)
                 else:
                     print(list_item)
         else:

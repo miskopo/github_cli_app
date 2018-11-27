@@ -42,27 +42,21 @@ class GithubController:
             return False
 
     @staticmethod
-    def check_response(response) -> bool:
+    def check_response(response) -> (bool, str):
         """
         Method checks for error message in response, as github return 200 even in case of error
         :param response: response to be checked
         :return: True if there is no error in response, False otherwise
         """
-        if response:
-            if response.ok:
-                try:
-                    loads(response.text)['data']
-                except (TypeError, KeyError):
-                    pass
-                else:
-                    return True
+        if response and response.ok:
             try:
                 error_message = loads(response.text)['errors']
-                logger.error(error_message)
             except (TypeError, KeyError):
-                return True
+                return True, None
             else:
-                return False
+                return False, error_message
+        else:
+            return False, "No response"
 
     def process_args(self):
         """
@@ -95,19 +89,19 @@ class GithubController:
         with post(self.graphql_api_endpoint, json=json_data,
                   headers={"Authorization": "bearer {}".format(self.api_key)}) as response:
             logger.debug("Response status code: {}".format(response.status_code))
-            if self.check_response(response):
+            if self.check_response(response)[0]:
                 return response
             else:
-                return None
+                raise ValueError(f"{self.check_response(response)[1]}")
 
     def list_my_repositories(self):
         list_repositories = ViewerQuery({'repositories': ['name', 'url', 'sshUrl']})
         list_repositories.construct_query()
-        response = self.send_request(list_repositories.__dict__())
-        if self.check_response(response):
+        try:
+            response = self.send_request(list_repositories.__dict__())
             return self.output_list_packer(loads(response.text)['data']['viewer']['repositories']['edges'])
-        else:
-            return f"GitHub replies: {loads(response.text)['errors']}"
+        except ValueError as e:
+            return str(e)
 
     def list_user_list_repositories(self):
 
@@ -116,11 +110,11 @@ class GithubController:
 
         list_user_repositories = UserQuery({'repositories': ['name', 'url', 'sshUrl']}, username=self.args.action[1])
         list_user_repositories.construct_query()
-
-        response = self.send_request(list_user_repositories.__dict__())
-        if self.check_response(response):
+        try:
+            response = self.send_request(list_user_repositories.__dict__())
             return self.output_list_packer(loads(response.text)['data']['user']['repositories']['edges'])
-        else:
-            return f"GitHub replies: {loads(response.text)['errors']}"
+        except ValueError as e:
+            return str(e)
+
 
 
