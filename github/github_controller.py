@@ -2,7 +2,7 @@ from json import loads
 
 from requests import post
 
-from queries.graphQL_query import ViewerQuery, UserQuery
+from .queries.graphQL_query import ViewerQuery, UserQuery
 from .authentication import load_api_key
 from .cli_printer import CLIPrinter
 from .common import InvalidAPIKeyException, InvalidNumberOfArgumentsException
