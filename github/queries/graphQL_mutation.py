@@ -1,7 +1,18 @@
 class ViewerMutation:
     __slots__ = 'payload', 'viewer_id', 'query'
 
-    def __init__(self, payload: dict):
+    """
+    Query structure:
+    mutation ACTION {
+  addReaction(input:{INPUT}) {
+    clientMutationId
+  }  }
+
+  Payload structure:
+   ('ACTION', {'param': 'value', 'param2': 'value2'})
+    """
+
+    def __init__(self, payload: tuple):
         self.payload = payload
         self.viewer_id = None
         self.query = None

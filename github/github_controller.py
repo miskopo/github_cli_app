@@ -105,7 +105,7 @@ class GithubController:
 
         :return: List of repositories or error response in case of error
         """
-        list_repositories = ViewerQuery({'repositories': ['name', 'url', 'sshUrl']})
+        list_repositories = ViewerQuery(('repositories', ['name', 'url', 'sshUrl']))
         list_repositories.construct_query()
         try:
             response = self.send_request(list_repositories.__dict__())
@@ -122,7 +122,7 @@ class GithubController:
         if len(self.args.action) != 2:
             raise InvalidNumberOfArgumentsException()
 
-        list_user_repositories = UserQuery({'repositories': ['name', 'url', 'sshUrl']}, username=self.args.action[1])
+        list_user_repositories = UserQuery(('repositories', ['name', 'url', 'sshUrl']), username=self.args.action[1])
         list_user_repositories.construct_query()
         try:
             response = self.send_request(list_user_repositories.__dict__())

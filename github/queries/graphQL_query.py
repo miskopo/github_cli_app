@@ -1,26 +1,43 @@
-class ViewerQuery:
+class BaseQueryClass:
     __slots__ = 'payload', 'query'
+    MAX_RESULTS = 50
 
-    def __init__(self, payload: dict):
+    """
+    Query structure:
+    query {
+     user {
+     OBJECT (first: N) { totalCount pageInfo {endCursor} edges { node { ATTRIBUTES } } } } } 
+
+  Payload structure:
+   ('OBJECT', [ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3])
+    """
+
+    def __init__(self, payload: tuple):
         self.payload = payload
         self.query = None
-
-    def construct_query(self):
-        self.query = f'{{viewer {{ {list(self.payload.keys())[0]} (first: 50) {{ totalCount pageInfo ' \
-            f'{{ endCursor }} edges {{ node {{ {" ".join(item for item in list(self.payload.values())[0])} ' \
-            f'}} }} }} }} }}'
 
     def __dict__(self):
         return {'query': self.query}
 
 
-class UserQuery:
+class ViewerQuery(BaseQueryClass):
+    __slots__ = 'payload', 'query'
+
+    def __init__(self, payload: tuple):
+        super().__init__(payload)
+
+    def construct_query(self):
+        self.query = f'{{viewer {{ {self.payload[0]} (first: {self.MAX_RESULTS}) {{ totalCount pageInfo ' \
+            f'{{ endCursor }} edges {{ node {{ {" ".join(item for item in self.payload[1])} ' \
+            f'}} }} }} }} }}'
+
+
+class UserQuery(BaseQueryClass):
     __slots__ = 'payload', '_username', 'query'
 
-    def __init__(self, payload: dict, username: str = None):
-        self.payload = payload
+    def __init__(self, payload: tuple, username: str = None):
+        super().__init__(payload)
         self._username = username
-        self.query = None
 
     @property
     def username(self):
@@ -33,10 +50,7 @@ class UserQuery:
         self._username = value
 
     def construct_query(self):
-        self.query = f'{{ user(login: {self.username})  {{ {list(self.payload.keys())[0]} (first: 50) ' \
+        self.query = f'{{ user(login: {self.username})  {{ {self.payload[0]} (first: {self.MAX_RESULTS}) ' \
             f'{{ totalCount pageInfo ' \
-            f'{{ endCursor }} edges {{ node {{ {" ".join(item for item in list(self.payload.values())[0])} ' \
+            f'{{ endCursor }} edges {{ node {{ {" ".join(item for item in self.payload[1])} ' \
             f'}} }} }} }} }}'
-
-    def __dict__(self):
-        return {'query': self.query}
