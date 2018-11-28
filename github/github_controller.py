@@ -3,6 +3,7 @@ from json import loads
 from requests import post
 
 from .queries.graphQL_query import ViewerQuery, UserQuery
+from .queries.graphQL_mutation import ViewerMutation
 from .authentication import load_api_key
 from .cli_printer import CLIPrinter
 from .common import InvalidAPIKeyException, InvalidNumberOfArgumentsException
@@ -64,7 +65,8 @@ class GithubController:
         """
         actions_dict = {
             'list-my-repositories': self.list_my_repositories,
-            'list-user-repositories': self.list_user_list_repositories
+            'list-user-repositories': self.list_user_list_repositories,
+            'create-repository': self.create_new_repository
         }
         if self.args.action[0] in actions_dict.keys():
             CLIPrinter.out(actions_dict[self.args.action[0]](), self.args)
@@ -107,6 +109,7 @@ class GithubController:
         """
         list_repositories = ViewerQuery(('repositories', ['name', 'url', 'sshUrl']))
         list_repositories.construct_query()
+        logger.debug(list_repositories.__dict__())
         try:
             response = self.send_request(list_repositories.__dict__())
             return self.repositories_output_list_packer(loads(response.text)['data']['viewer']['repositories']['edges'])
@@ -130,5 +133,17 @@ class GithubController:
         except ValueError as e:
             return str(e)
 
+    def create_new_repository(self):
+        # MDQ6VXNlcjQzODc1OTA0
+        if len(self.args.action) != 2:
+            raise InvalidNumberOfArgumentsException()
 
-
+        create_new_repository = ViewerMutation(
+            ('createProject', {'ownerId': "MDQ6VXNlcjQzODc1OTA0", 'name': self.args.action[1]}))
+        create_new_repository.construct_query()
+        logger.debug(create_new_repository.__dict__())
+        try:
+            response = self.send_request(create_new_repository.__dict__())
+            return "Succ"
+        except ValueError as e:
+            return str(e)

@@ -22,4 +22,9 @@ class ViewerMutation:
         return {'query': '{viewer {id} }'}
 
     def construct_query(self):
-        self.query = f'createProject(input: {{ ownerID: {self.viewer_id}, name: "Test name"}}) {{ clientMutationId}}'
+        attributes_as_string = [f'{k}: "{v}"' for k, v in self.payload[1].items()]
+        self.query = f'mutation {{ {self.payload[0]}(input: {{ {", ".join(attr for attr in attributes_as_string) } }}) ' \
+            f'{{ clientMutationId }} }}'
+
+    def __dict__(self):
+        return {'query': self.query}
