@@ -27,7 +27,6 @@ def load_api_key():
     except KeyError:
         # If it doesn't exist, however, it's not big deal
         logger.debug("No environ variable GITHUB_API_KEY")
-        pass
     else:
         return api_key
     try:
