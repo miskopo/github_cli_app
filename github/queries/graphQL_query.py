@@ -5,11 +5,11 @@ class BaseQueryClass:
     """
     Query structure:
     query {
-     user {
-     OBJECT (first: N) { totalCount pageInfo {endCursor} edges { node { ATTRIBUTES } } } } } 
+    user {
+    OBJECT (first: N) { totalCount pageInfo {endCursor} edges { node { ATTRIBUTES } } } } } 
 
-  Payload structure:
-   ('OBJECT', [ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3])
+    Payload structure:
+    ('OBJECT', [ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3])
     """
 
     def __init__(self, payload: tuple):

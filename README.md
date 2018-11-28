@@ -6,13 +6,14 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2df8b89fe57485b8a9b798af0578acc)](https://www.codacy.com/app/miskopo/github_cli_app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=miskopo/github_cli_app&amp;utm_campaign=Badge_Grade)
 ![Python versions](https://img.shields.io/badge/python-3.6|3.7-3776AB.svg?logo=python)
 ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
+![API used](https://img.shields.io/badge/API-REST-E10098.svg)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/miskopo/github_cli_app.svg)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/miskopo)
 
 Ever wanted to browse your repos through CLI? Or create a new one without the hassle of opening the browser? Now you can!
 
 ### What is this project? :camel: 
-This project uses Github v4 API and Python to provide you with command line interface. Thus you don't have to leave Guake (or you other favourite terminal) in order to
+This project uses Github v4 API, Github v3 API and Python to provide you with command line interface. Thus you don't have to leave Guake (or you other favourite terminal) in order to
 create new repo for your next project, or to see URL of you existing projects, or do whatever the API allows you.
 
 Focus of this project is on simplicity - arguments are intuitive and provided as keywords (some flags are also available).
@@ -23,15 +24,16 @@ There, in `Personal access tokens` section, create new token with full rights (y
 `api_key` in project directory. **Beware, make sure no one shady gains access to it, as this key enables anyone to do anything with your Github account.**
 
 ### Features :construction: 
-(thick marks implemented features)
-- [x]  list-my-repositories
-- [x]  list-user-repositories USERNAME
-- [ ]  create-new-repo
+(tick marks implemented features)
+- [x]  list-my-repositories (GraphQL)
+- [x]  list-user-repositories USERNAME (GraphQL)
+- [ ]  create-new-repo REPOSITORY_NAME (REST)
+- [ ]  create-new-project REPOSITORY_NAME PROJECT_NAME
 
 more to come!
 
-#### Author
-@miskopo
+#### Collaborators
+@miskopo @cathelyn @xbankov
 
 #### Disclaimer
-This project is in no way affiliated with Github and it's not official part of Github per se (yet).
+This project is in no way affiliated with Github and it's not official part of Github :octocat: per se (yet).

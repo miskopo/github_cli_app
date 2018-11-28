@@ -4,9 +4,9 @@ class ViewerMutation:
     """
     Query structure:
     mutation ACTION {
-  addReaction(input:{INPUT}) {
+    addReaction(input:{INPUT}) {
     clientMutationId
-  }  }
+    }  }
 
   Payload structure:
    ('ACTION', {'param': 'value', 'param2': 'value2'})
@@ -18,12 +18,13 @@ class ViewerMutation:
         self.query = None
 
     @staticmethod
-    def obtain_user_id_query():
-        return {'query': '{viewer {id} }'}
+    def obtain_viewer_id_query():
+        return {'query': '{viewer {id}}'}
 
     def construct_query(self):
         attributes_as_string = [f'{k}: "{v}"' for k, v in self.payload[1].items()]
-        self.query = f'mutation {{ {self.payload[0]}(input: {{ {", ".join(attr for attr in attributes_as_string) } }}) ' \
+        self.query = f'mutation {{ {self.payload[0]}(input: ' \
+            f'{{ {", ".join(attr for attr in attributes_as_string) } }}) ' \
             f'{{ clientMutationId }} }}'
 
     def __dict__(self):
