@@ -5,8 +5,6 @@
 ![Platform](https://img.shields.io/badge/platform-linux-%23FCC624.svg?logo=linux)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2df8b89fe57485b8a9b798af0578acc)](https://www.codacy.com/app/miskopo/github_cli_app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=miskopo/github_cli_app&amp;utm_campaign=Badge_Grade)
 ![Python versions](https://img.shields.io/badge/python-3.6|3.7-3776AB.svg?logo=python)
-![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
-![API used](https://img.shields.io/badge/API-REST-E10098.svg)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/miskopo/github_cli_app.svg)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/miskopo)
 
@@ -24,11 +22,13 @@ There, in `Personal access tokens` section, create new token with full rights (y
 `api_key` in project directory. **Beware, make sure no one shady gains access to it, as this key enables anyone to do anything with your Github account.**
 
 ### Features :construction: 
-(tick marks implemented features)
-- [x]  list-my-repositories (GraphQL)
-- [x]  list-user-repositories USERNAME (GraphQL)
-- [ ]  create-new-repo REPOSITORY_NAME (REST)
-- [ ]  create-new-project REPOSITORY_NAME PROJECT_NAME
+(tick marks implemented features) 
+
+- [x]  list-my-repositories  ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
+- [x]  list-user-repositories USERNAME ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
+- [ ]  create-new-repo REPOSITORY_NAME ![API used](https://img.shields.io/badge/API-REST-005976.svg)
+- [ ]  create-new-project REPOSITORY_NAME PROJECT_NAME ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
+
 
 more to come!
 
