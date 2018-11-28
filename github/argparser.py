@@ -15,6 +15,14 @@ arg_parser.add_argument("--https",
 arg_parser.add_argument("--no_numbers",
                         help="Disables number printing in lists",
                         action="store_true")
+arg_parser.add_argument("--description",
+                        nargs=1,
+                        type=str,
+                        help="Repository description")
+arg_parser.add_argument("--private",
+                        action="store_true",
+                        help="Create repository as private",
+                        default="False")
 
 
 def init_args():
