@@ -176,7 +176,10 @@ class GithubController:
         Delete repository
         :return: Message describing operation result
         """
-        response = self.send_restful_request(endpoint=f"{self.rest_api_endpoint}/repos/miskopo/{self.args.action[1]}",
+        viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_login_query()).text)['data'][
+            'viewer']['login']
+        response = self.send_restful_request(endpoint=
+                                             f"{self.rest_api_endpoint}/repos/{viewer_login}/{self.args.action[1]}",
                                              json_data=None, method='DELETE')
         if response.status_code == 204:
             return f"Repository {self.args.action[1]} was deleted successfully"

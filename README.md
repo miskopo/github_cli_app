@@ -1,7 +1,9 @@
 ## :octocat: Github CLI application
 [![Build Status](https://travis-ci.org/miskopo/github_cli_app.svg?branch=master)](https://travis-ci.org/miskopo/github_cli_app)
 [![codecov](https://codecov.io/gh/miskopo/github_cli_app/branch/master/graph/badge.svg)](https://codecov.io/gh/miskopo/github_cli_app)
-![GitHub](https://img.shields.io/github/license/miskopo/github_cli_app.svg)
+![License](https://img.shields.io/github/license/miskopo/github_cli_app.svg)
+![GitHub commit activity the past week](https://img.shields.io/github/commit-activity/w/miskopo/github_cli_app.svg)
+[![Requirements Status](https://requires.io/github/miskopo/github_cli_app/requirements.svg?branch=master)](https://requires.io/github/miskopo/github_cli_app/requirements/?branch=master)
 ![Platform](https://img.shields.io/badge/platform-linux-%23FCC624.svg?logo=linux)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2df8b89fe57485b8a9b798af0578acc)](https://www.codacy.com/app/miskopo/github_cli_app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=miskopo/github_cli_app&amp;utm_campaign=Badge_Grade)
 ![Python versions](https://img.shields.io/badge/python-3.6|3.7-3776AB.svg?logo=python)
@@ -26,14 +28,17 @@ There, in `Personal access tokens` section, create new token with full rights (y
 
 - [x]  list-my-repositories  ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
 - [x]  list-user-repositories USERNAME ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
-- [x]  create-new-repo REPOSITORY_NAME ![API used](https://img.shields.io/badge/API-REST-005976.svg)
+- [x]  create-repository REPOSITORY_NAME ![API used](https://img.shields.io/badge/API-REST-005976.svg)
+- [x]  delete-repository REPOSITORY_NAME ![API used](https://img.shields.io/badge/API-REST-005976.svg)
 - [ ]  create-new-project REPOSITORY_NAME PROJECT_NAME ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
 
 
 more to come!
 
 #### Collaborators
-@miskopo @cathelyn @xbankov
+- Michal Polovka    @miskopo 
+- Katarina Bulkova  @cathelyn 
+- Miki Bankovic     @xbankov
 
 #### Disclaimer
 This project is in no way affiliated with Github and it's not official part of Github :octocat: per se (yet).
