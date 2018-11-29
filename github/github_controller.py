@@ -50,6 +50,7 @@ class GithubController:
         actions_dict = {
             'list-my-repositories': self.list_my_repositories,
             'list-user-repositories': self.list_user_list_repositories,
+            'create-repository': self.create_new_repository,
             'create-project': self.create_new_project
         }
         if self.args.action[0] in actions_dict.keys():
@@ -89,8 +90,10 @@ class GithubController:
         if method == 'GET':
             with get(endpoint, json=json_data, headers={"Authorization": f"token {self.api_key}"}) as response:
                 logger.debug(f"Response status code: {response.status_code}")
-                return response
-            # TODO: Finish
+        else:
+            with post(endpoint, json=json_data, headers={"Authorization": f"token {self.api_key}"}) as response:
+                logger.debug(f"Response status code: {response.status_code}")
+        return response
 
     def list_my_repositories(self):
         """
@@ -146,14 +149,14 @@ class GithubController:
             return str(e)
 
     def create_new_repository(self):
-        logger.debug("Obtaining viewer's username")
-        viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_id_query()).text)['data']['viewer'][
-            'login']
-        json = {"name": self.args[1],
+        json = {"name": self.args.action[1],
                 "description": self.args.description if self.args.description else "",
                 "private": self.args.private}
-        response = self.send_restful_request(endpoint=f"{self.rest_api_endpoint}/{viewer_login}/repos",
+        response = self.send_restful_request(endpoint=f"{self.rest_api_endpoint}/user/repos",
                                              json_data=json, method="POST")
-        assert response
+        if response.status_code == 422:
+            logger.debug("Repository already exists")
+            return f"Repository with name {self.args.action[1]} already exists"
+        return [(loads(response.text)['name'], loads(response.text)['ssh_url'], loads(response.text)['git_url'])]
 
 

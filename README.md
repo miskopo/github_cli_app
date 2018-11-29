@@ -26,7 +26,7 @@ There, in `Personal access tokens` section, create new token with full rights (y
 
 - [x]  list-my-repositories  ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
 - [x]  list-user-repositories USERNAME ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
-- [ ]  create-new-repo REPOSITORY_NAME ![API used](https://img.shields.io/badge/API-REST-005976.svg)
+- [x]  create-new-repo REPOSITORY_NAME ![API used](https://img.shields.io/badge/API-REST-005976.svg)
 - [ ]  create-new-project REPOSITORY_NAME PROJECT_NAME ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
 
 
