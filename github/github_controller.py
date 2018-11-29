@@ -16,12 +16,12 @@ class GithubController:
     graphql_api_endpoint = 'https://api.github.com/graphql'
     rest_api_endpoint = 'https://api.github.com'
 
-    def __init__(self, args):
-        self.api_key = None
+    def __init__(self, args, api_key=None):
+        self.api_key = api_key
         self.args = args
 
     def __call__(self, *args, **kwargs):
-        if not self.obtain_api_key():
+        if not self.api_key and not self.obtain_api_key():
             return False
         return self.process_args()
 
@@ -69,8 +69,8 @@ class GithubController:
         return [
             (
                 edge['node']['name'] if not self.args.url_only else "",
-                edge['node']['sshUrl'] if not self.args.https else "",
-                edge['node']['url'] if self.args.https else "")
+                edge['node']['sshUrl'] if (not self.args.https or self.args.both_urls) else "",
+                edge['node']['url'] if self.args.https or self.args.both_urls else "")
             for edge in repositories_dict
         ]
 
@@ -114,6 +114,7 @@ class GithubController:
         logger.debug(list_repositories.__dict__())
         try:
             response = self.send_graphql_request(list_repositories.__dict__())
+            logger.debug(response.text)
             return self.repositories_output_list_packer(loads(response.text)['data']['viewer']['repositories']['edges'])
         except ValueError as e:
             return str(e)

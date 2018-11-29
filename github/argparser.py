@@ -7,6 +7,10 @@ arg_parser.add_argument("action",
                         help="Github action")
 arg_parser.add_argument("--url_only",
                         help="Show only url (where applicable)",
+                        action="store_true",
+                        )
+arg_parser.add_argument("--both_urls",
+                        help="Show both urls (where applicable)",
                         action="store_true"
                         )
 arg_parser.add_argument("--https",
@@ -22,7 +26,7 @@ arg_parser.add_argument("--description",
 arg_parser.add_argument("--private",
                         action="store_true",
                         help="Create repository as private",
-                        default="False")
+                        default=False)
 
 
 def init_args():
