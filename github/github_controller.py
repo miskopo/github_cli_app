@@ -1,13 +1,14 @@
 from json import loads
 
-from requests import post, get
-from .queries.graphQL_query import ViewerQuery, UserQuery
-from .queries.graphQL_mutation import ViewerMutation
+from requests import post, get, delete, Response
+
 from .authentication import load_api_key
 from .cli_printer import CLIPrinter
 from .common import InvalidAPIKeyException, InvalidNumberOfArgumentsException, deprecated, \
-    check_qraphql_response, check_restful_response
+    check_qraphql_response
 from .logger import logger
+from .queries.graphQL_mutation import ViewerMutation
+from .queries.graphQL_query import ViewerQuery, UserQuery
 
 
 class GithubController:
@@ -51,6 +52,7 @@ class GithubController:
             'list-my-repositories': self.list_my_repositories,
             'list-user-repositories': self.list_user_list_repositories,
             'create-repository': self.create_new_repository,
+            'delete-repository': self.delete_repository,
             'create-project': self.create_new_project
         }
         if self.args.action[0] in actions_dict.keys():
@@ -72,7 +74,7 @@ class GithubController:
             for edge in repositories_dict
         ]
 
-    def send_graphql_request(self, json_data):
+    def send_graphql_request(self, json_data) -> Response:
         """
         Common method for repositories listing request
         :param json_data: json to be sent
@@ -86,13 +88,19 @@ class GithubController:
             else:
                 raise ValueError(f"{check_qraphql_response(response)[1]}")
 
-    def send_restful_request(self, endpoint, json_data, method='GET'):
+    def send_restful_request(self, endpoint, json_data, method='GET') -> Response:
+        header = {"Authorization": f"token {self.api_key}"}
         if method == 'GET':
-            with get(endpoint, json=json_data, headers={"Authorization": f"token {self.api_key}"}) as response:
+            with get(endpoint, json=json_data, headers=header) as response:
+                logger.debug(f"Response status code: {response.status_code}")
+        elif method == 'POST':
+            with post(endpoint, json=json_data, headers=header) as response:
+                logger.debug(f"Response status code: {response.status_code}")
+        elif method == 'DELETE':
+            with delete(endpoint, headers=header) as response:
                 logger.debug(f"Response status code: {response.status_code}")
         else:
-            with post(endpoint, json=json_data, headers={"Authorization": f"token {self.api_key}"}) as response:
-                logger.debug(f"Response status code: {response.status_code}")
+            response = None
         return response
 
     def list_my_repositories(self):
@@ -149,9 +157,13 @@ class GithubController:
             return str(e)
 
     def create_new_repository(self):
+        """
+        Creates new repository
+        :return: Message describing operation result
+        """
         json = {"name": self.args.action[1],
-                "description": self.args.description if self.args.description else "",
-                "private": self.args.private}
+                "description": self.args.description[0] if self.args.description else "",
+                "private": self.args.private if self.args.private else False}
         response = self.send_restful_request(endpoint=f"{self.rest_api_endpoint}/user/repos",
                                              json_data=json, method="POST")
         if response.status_code == 422:
@@ -159,4 +171,15 @@ class GithubController:
             return f"Repository with name {self.args.action[1]} already exists"
         return [(loads(response.text)['name'], loads(response.text)['ssh_url'], loads(response.text)['git_url'])]
 
+    def delete_repository(self):
+        """
+        Delete repository
+        :return: Message describing operation result
+        """
+        response = self.send_restful_request(endpoint=f"{self.rest_api_endpoint}/repos/miskopo/{self.args.action[1]}",
+                                             json_data=None, method='DELETE')
+        if response.status_code == 204:
+            return f"Repository {self.args.action[1]} was deleted successfully"
+        else:
+            return f"Unable to delete repository {self.args.action[1]}: {loads(response.text)['message']}"
 

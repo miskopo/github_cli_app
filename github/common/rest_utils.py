@@ -1,5 +1,6 @@
 from json import loads
 
+
 def check_restful_response(response) -> (bool, str):
     """
     Method checks for error message in response, as github return 200 even in case of error
