@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 from logging import disable as disable_logger, CRITICAL
 from unittest import mock
 
-from authentication import load_api_key
+from github.authentication import load_api_key
 from github.github_controller import GithubController
 
 disable_logger(CRITICAL)
