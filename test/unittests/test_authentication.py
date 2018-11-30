@@ -37,12 +37,20 @@ def test_load_api_key_from_environ():
 @backup_and_restore_file
 def test_load_api_key_from_file():
     with mock.patch.dict(environ, {}):
+        try:
+            del environ['GITHUB_API_KEY']
+        except KeyError:
+            pass
         with open(f'{dirname(github.__file__)}/../api_key', "w") as key_file:
             api_key = '1234567890123456789012345678901234567890'
             key_file.write(api_key)
         assert load_api_key() == api_key
 
     with mock.patch.dict(environ, {}):
+        try:
+            del environ['GITHUB_API_KEY']
+        except KeyError:
+            pass
         with open(f'{dirname(github.__file__)}/../api_key', "w") as key_file:
             api_key = 'not_long_enough'
             key_file.write(api_key)
