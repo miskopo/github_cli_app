@@ -3,8 +3,15 @@ from argparse import ArgumentParser
 arg_parser = ArgumentParser()
 
 arg_parser.add_argument("action",
-                        nargs="+",
-                        help="Github action")
+                        nargs=1,
+                        help="Github action",
+                        choices=['list-my-repositories',
+                                 'list-user-repositories',
+                                 'create-repository',
+                                 'delete-repository'])
+arg_parser.add_argument("parameters",
+                        nargs="*",
+                        help="Parameter of specified action, e.g. username, repository name etc.")
 arg_parser.add_argument("--url_only",
                         help="Show only url (where applicable)",
                         action="store_true",
