@@ -125,10 +125,11 @@ class GithubController:
         :return: List of user's repositories or error response in case of error (e.g. wrong username)
         """
 
-        if len(self.args.action) != 2:
+        if not self.args.parameters:
             raise InvalidNumberOfArgumentsException()
 
-        list_user_repositories = UserQuery(('repositories', ['name', 'url', 'sshUrl']), username=self.args.action[1])
+        list_user_repositories = UserQuery(('repositories', ['name', 'url', 'sshUrl']),
+                                           username=self.args.parameters[0])
         list_user_repositories.construct_query()
         try:
             response = self.send_graphql_request(list_user_repositories.__dict__())
@@ -138,17 +139,18 @@ class GithubController:
 
     @deprecated
     def create_new_project(self):
-        if len(self.args.action) != 2:
+        if not self.args.parameters:
             raise InvalidNumberOfArgumentsException()
 
         try:
             # FIXME: Needs to work with repo id, not user id
             logger.debug("Obtaining viewer's id")
-            viewer_id = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_id_query()).text)['data']['viewer']['id']
+            viewer_id = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_id_query()).text)[
+                'data']['viewer']['id']
         except ValueError as e:
             return str(e)
         create_new_repository = ViewerMutation(
-            ('createProject', {'ownerId': viewer_id, 'name': self.args.action[1]}))
+            ('createProject', {'ownerId': viewer_id, 'name': self.args.parameters[0]}))
         create_new_repository.construct_query()
         logger.debug(create_new_repository.__dict__())
         try:
@@ -162,34 +164,34 @@ class GithubController:
         Creates new repository
         :return: Message describing operation result
         """
-        if len(self.args.action) < 2:
+        if not self.args.parameters:
             raise InvalidNumberOfArgumentsException()
 
-        json = {"name": self.args.action[1],
+        json = {"name": self.args.parameters[0],
                 "description": self.args.description[0] if self.args.description else "",
                 "private": self.args.private if self.args.private else False}
         response = self.send_restful_request(endpoint=f"{self.rest_api_endpoint}/user/repos",
                                              json_data=json, method="POST")
         if response.status_code == 422:
             logger.debug("Repository already exists")
-            return f"Repository with name {self.args.action[1]} already exists"
+            return f"Repository with name {self.args.parameters[0]} already exists"
         return [(loads(response.text)['name'], loads(response.text)['ssh_url'], loads(response.text)['git_url'])]
 
-    def delete_repository(self):
+    def delete_repository(self) -> str:
         """
         Delete repository
         :return: Message describing operation result
         """
-        if len(self.args.action) != 2:
+        if not self.args.parameters:
             raise InvalidNumberOfArgumentsException()
 
         viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_login_query()).text)['data'][
             'viewer']['login']
         response = self.send_restful_request(endpoint=
-                                             f"{self.rest_api_endpoint}/repos/{viewer_login}/{self.args.action[1]}",
+                                             f"{self.rest_api_endpoint}/repos/{viewer_login}/{self.args.parameters[0]}",
                                              json_data=None, method='DELETE')
         if response.status_code == 204:
-            return f"Repository {self.args.action[1]} was deleted successfully"
+            return f"Repository {self.args.parameters[0]} was deleted successfully"
         else:
-            return f"Unable to delete repository {self.args.action[1]}: {loads(response.text)['message']}"
+            return f"Unable to delete repository {self.args.parameters[0]}: {loads(response.text)['message']}"
 

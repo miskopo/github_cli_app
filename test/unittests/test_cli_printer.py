@@ -7,7 +7,8 @@ from github.cli_printer import CLIPrinter
 
 def setup_arg_parser():
     parser = ArgumentParser()
-    parser.add_argument("action", nargs="+")
+    parser.add_argument("action", nargs=1)
+    parser.add_argument("parameters", nargs="*")
     parser.add_argument("--both_urls", action="store_true")
     parser.add_argument("--no_numbers", action="store_true")
     parser.add_argument("--url_only", action="store_true")
