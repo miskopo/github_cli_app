@@ -3,7 +3,16 @@ python:
   - "3.6"
 install:
   - pip install -r requirements.txt
-script:
-  - python -m pytest  --cov=./github --capture=sys -vv
+jobs:
+  include:
+    - stage: test
+      script:
+        - python -m pytest  --cov=./github --capture=sys -vv
+    - stage: installation
+      script:
+        - pip install -e --user .
+    - stage: run
+      script:
+        - python -m github -h
 after_success:
   - codecov
