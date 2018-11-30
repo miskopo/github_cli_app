@@ -100,3 +100,40 @@ def test_create_repo(github_ctl, arg_parser):
 
         github_ctl.args = arg_parser.parse_args(["action", "new_repo"])
         assert github_ctl.create_new_repository() == [("new_repo", "ssh:new_repo", "git:http_repo")]
+
+        json = {"name": "new_repo",
+                "description": "",
+                "private": False}
+        restful_mockingbird.assert_called_with(endpoint="https://api.github.com/user/repos",
+                                               json_data=json, method='POST')
+
+        restful_mockingbird.return_value = Namespace(text='{"name": "new_repo",'
+                                                          '"ssh_url": "ssh:new_repo",'
+                                                          '"git_url": "git:http_repo"}',
+                                                     status_code=422)
+        assert github_ctl.create_new_repository() != [("new_repo", "ssh:new_repo", "git:http_repo")]
+        assert all(x in github_ctl.create_new_repository().lower() for x in ["new_repo", "exists"])
+
+
+@setup_controller_and_parser
+def test_delete_repository(github_ctl, arg_parser):
+    with mock.patch.object(GithubController, 'send_restful_request') as restful_mockingbird:
+        with mock.patch.object(GithubController, 'send_graphql_request') as username_mock:
+            username_mock.return_value = Namespace(text='{"data": {"viewer": {"login": "mock_user"}}}')
+            restful_mockingbird.return_value = Namespace(status_code=204)
+            github_ctl.args = arg_parser.parse_args([""])
+            with raises(InvalidNumberOfArgumentsException):
+                github_ctl.delete_repository()
+
+            github_ctl.args = arg_parser.parse_args(["action"])
+            with raises(InvalidNumberOfArgumentsException):
+                github_ctl.delete_repository()
+
+            github_ctl.args = arg_parser.parse_args(["action", "deleted_repo"])
+            assert all(x in github_ctl.delete_repository().lower() for x in ["deleted_repo", "deleted"])
+
+            restful_mockingbird.return_value = Namespace(status_code=404, text='{"message": "Not found"}')
+            assert all(x in github_ctl.delete_repository().lower() for x in ["deleted_repo", "unable"])
+
+            restful_mockingbird.assert_called_with(endpoint="https://api.github.com/repos/mock_user/deleted_repo",
+                                                   json_data=None, method='DELETE')

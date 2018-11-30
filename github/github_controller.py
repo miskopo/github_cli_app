@@ -180,6 +180,9 @@ class GithubController:
         Delete repository
         :return: Message describing operation result
         """
+        if len(self.args.action) != 2:
+            raise InvalidNumberOfArgumentsException()
+
         viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_login_query()).text)['data'][
             'viewer']['login']
         response = self.send_restful_request(endpoint=
