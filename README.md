@@ -23,20 +23,32 @@ All you have to do (except installing this application, of course) is to registe
 There, in `Personal access tokens` section, create new token with full rights (you can actually omit rights you know you don't want to use). Copy this token and save it to file 
 `api_key` in project directory. **Beware, make sure no one shady gains access to it, as this key enables anyone to do anything with your Github account.**
 
-### Features :construction: 
+
+### Installation  :whale:
+As this project is currently only available on Github :octocat:, you need to perform following steps:
+
+1. clone this repository and navigate to its root
+
+2. execute `pip install .`
+If you want to install only as a user, execute `pip install --user .`
+If you want to always use the newest version, execute `pip install -e .` (or also with user flag). This will allow executing `github` dynamically, so you can have new functionality with every `pull` .
+
+### Features and usage :construction: 
 (tick marks implemented features) 
 
-- [x]  list-my-repositories  ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
-- [x]  list-user-repositories USERNAME ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
-- [x]  create-repository REPOSITORY_NAME ![API used](https://img.shields.io/badge/API-REST-005976.svg)
-- [x]  delete-repository REPOSITORY_NAME ![API used](https://img.shields.io/badge/API-REST-005976.svg)
-- [ ]  create-new-project REPOSITORY_NAME PROJECT_NAME ![API used](https://img.shields.io/badge/API-GraphQL-E10098.svg?logo=GraphQL)
+execute `github` with following options and/or arguments `[ this means optional ]`:
+
+- [x]  `list-my-repositories `
+- [x]  `list-user-repositories USERNAME `
+- [x]  `create-repository REPOSITORY_NAME `
+- [x]  `delete-repository REPOSITORY_NAME `
+- [ ]  `create-new-project REPOSITORY_NAME PROJECT_NAME [--private] [--description DESCRIPTION] `
 
 
 more to come!
 
 #### Collaborators
-- Michal Polovka    @miskopo 
+- Michal Polovka    @miskopo
 - Katarina Bulkova  @cathelyn 
 - Miki Bankovic     @xbankov
 
