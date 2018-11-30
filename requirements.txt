@@ -3,3 +3,4 @@ pytest-cov
 colorama
 requests
 codecov
+coverage

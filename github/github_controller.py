@@ -50,7 +50,7 @@ class GithubController:
         """
         actions_dict = {
             'list-my-repositories': self.list_my_repositories,
-            'list-user-repositories': self.list_user_list_repositories,
+            'list-user-repositories': self.list_user_repositories,
             'create-repository': self.create_new_repository,
             'delete-repository': self.delete_repository,
             'create-project': self.create_new_project
@@ -119,7 +119,7 @@ class GithubController:
         except ValueError as e:
             return str(e)
 
-    def list_user_list_repositories(self):
+    def list_user_repositories(self):
         """
         Method lists repositories of user provided in argument
         :return: List of user's repositories or error response in case of error (e.g. wrong username)
@@ -162,6 +162,9 @@ class GithubController:
         Creates new repository
         :return: Message describing operation result
         """
+        if len(self.args.action) < 2:
+            raise InvalidNumberOfArgumentsException()
+
         json = {"name": self.args.action[1],
                 "description": self.args.description[0] if self.args.description else "",
                 "private": self.args.private if self.args.private else False}
