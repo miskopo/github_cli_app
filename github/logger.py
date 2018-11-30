@@ -24,5 +24,5 @@ console_debug_handler.setFormatter(console_debug_formatter)
 file_debug_handler.setFormatter(file_debug_formatter)
 
 # add the handlers to the logger
-logger.addHandler(console_debug_handler)
+# logger.addHandler(console_debug_handler)
 logger.addHandler(file_debug_handler)

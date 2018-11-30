@@ -18,7 +18,8 @@ class Namespace:
 
 def setup_controller_and_parser(func):
     parser = ArgumentParser()
-    parser.add_argument("action", nargs="+")
+    parser.add_argument("action", nargs=1)
+    parser.add_argument("parameters", nargs="*")
     parser.add_argument("--both_urls", action="store_true")
     parser.add_argument("--url_only", action="store_true")
     parser.add_argument("--https", action="store_true")
