@@ -42,4 +42,5 @@ def load_api_key():
 
 
 def register_api_key():
+    # TODO: Implement
     pass
