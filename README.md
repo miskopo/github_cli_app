@@ -1,5 +1,5 @@
 ## :octocat: Github CLI application
-[![Build Status](https://travis-ci.org/miskopo/github_cli_app.svg?branch=master)](https://travis-ci.org/miskopo/github_cli_app)
+[![Build Status]((https://img.shields.io/travis/miskopo/github_cli_app.svg?logo=travis-ci))](https://travis-ci.org/miskopo/github_cli_app)
 [![codecov](https://codecov.io/gh/miskopo/github_cli_app/branch/master/graph/badge.svg)](https://codecov.io/gh/miskopo/github_cli_app)
 ![License](https://img.shields.io/github/license/miskopo/github_cli_app.svg)
 ![GitHub commit activity the past week](https://img.shields.io/github/commit-activity/w/miskopo/github_cli_app.svg)
