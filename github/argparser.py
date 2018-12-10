@@ -5,7 +5,8 @@ arg_parser = ArgumentParser()
 arg_parser.add_argument("action",
                         nargs=1,
                         help="Github action",
-                        choices=['list-my-repositories',
+                        choices=['register',
+                                 'list-my-repositories',
                                  'list-user-repositories',
                                  'create-repository',
                                  'delete-repository'])

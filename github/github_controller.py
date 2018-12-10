@@ -2,7 +2,7 @@ from json import loads
 
 from requests import post, get, delete, Response
 
-from .authentication import load_api_key
+from .authentication import load_api_key, register_api_key
 from .cli_printer import CLIPrinter
 from .common import InvalidAPIKeyException, InvalidNumberOfArgumentsException, deprecated, \
     check_qraphql_response
@@ -44,21 +44,26 @@ class GithubController:
 
     def process_args(self) -> bool:
         """
-        Method executes function assigned to argument provided by user
+        Method invokes execution of function assigned to argument provided by user
 
         :return: True if the execution was successful, False otherwise
         """
         actions_dict = {
+            'register': register_api_key,
             'list-my-repositories': self.list_my_repositories,
             'list-user-repositories': self.list_user_repositories,
             'create-repository': self.create_new_repository,
             'delete-repository': self.delete_repository,
             'create-project': self.create_new_project
         }
-        if self.args.action[0] in actions_dict.keys():
-            CLIPrinter.out(actions_dict[self.args.action[0]](), self.args)
+
+        if self.args and self.args.action and self.args.action[0] in actions_dict.keys():
+            self.execute_arg(actions_dict[self.args.action[0]])
             return True
         return False
+
+    def execute_arg(self, func):
+            CLIPrinter.out(func(), self.args)
 
     def repositories_output_list_packer(self, repositories_dict) -> [(str, str, str)]:
         """

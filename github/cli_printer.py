@@ -18,6 +18,8 @@ class CLIPrinter:
                             print(list_item_sub_item)
                 else:
                     print(list_item)
+        elif isinstance(data_to_print, Exception):
+            print(str(data_to_print))
         else:
             print(data_to_print)
 

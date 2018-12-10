@@ -1,3 +1,4 @@
+from getpass import getpass
 from os import environ
 from os.path import dirname
 
@@ -42,5 +43,36 @@ def load_api_key():
 
 
 def register_api_key():
-    # TODO: Implement
-    pass
+    """
+    Registers API KEY and stores it in API KEY file located in application's root
+
+    If the key already exists, user is given choice whether to continue using already registered key or to register new
+    key
+    :return: Informative string
+    """
+    try:
+        load_api_key()
+        logger.debug("API_KEY found")
+        print("API Key already exists. Would you like to:")
+        print("1. Keep using already registered key (default)")
+        print("2. Register new key")
+        while True:
+            choice = input("Your choice? ([1], 2): ") or "1"
+            if choice == "1":
+                return "Using already registered API KEY"
+            elif choice == "2":
+                break
+            print("Invalid choice, please try again")
+    except (FileNotFoundError, InvalidAPIKeyException):
+        pass
+    _api_key = getpass("Please copy-paste (or type) you API KEY and press return. Characters will not be shown: ")
+    if len(_api_key) != 40:
+        raise InvalidAPIKeyException("Invalid length of API KEY (should be 40 characters)")
+    try:
+        with open(f'{dirname(github.__file__)}/../api_key', "w") as key_file:
+            key_file.write(_api_key)
+            logger.info("API KEY written to api_key file")
+            return "API KEY successfully written to api_key file"
+    except PermissionError as e:
+        logger.error(str(e))
+        return f"Error occurred: {str(e)}, key not written"

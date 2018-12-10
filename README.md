@@ -49,7 +49,6 @@ more to come!
 
 #### Collaborators
 - Michal Polovka    @miskopo
-- Katarina Bulkova  @cathelyn 
 - Miki Bankovic     @xbankov
 
 #### Disclaimer
