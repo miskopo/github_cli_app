@@ -8,6 +8,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2df8b89fe57485b8a9b798af0578acc)](https://www.codacy.com/app/miskopo/github_cli_app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=miskopo/github_cli_app&amp;utm_campaign=Badge_Grade)
 ![Python versions](https://img.shields.io/badge/python-3.6|3.7-3776AB.svg?logo=python)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/miskopo/github_cli_app.svg)
+[![Documentation Status](https://readthedocs.org/projects/github-cli-app/badge/?version=latest)](https://github-cli-app.readthedocs.io/en/latest/?badge=latest)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/miskopo)
 
 Ever wanted to browse your repos through CLI? Or create a new one without the hassle of opening the browser? Now you can!
@@ -49,7 +50,6 @@ more to come!
 
 #### Collaborators
 - Michal Polovka    @miskopo
-- Miki Bankovic     @xbankov
 
 #### Disclaimer
 This project is in no way affiliated with Github and it's not official part of Github :octocat: per se (yet).
