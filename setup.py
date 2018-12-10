@@ -5,7 +5,7 @@ with open('README.md') as file:
 
 setup(
     name='github',
-    version='0.0.3',
+    version='0.1.0',
     author='Michal Polovka',
     author_email='michal.polovka@gmail.com',
     description='Command line interface for GitHub',

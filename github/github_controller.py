@@ -63,7 +63,12 @@ class GithubController:
         return False
 
     def execute_arg(self, func):
-            CLIPrinter.out(func(), self.args)
+        """
+        Executes function provided as argument
+        :param func: function to be executed
+        :return: NOne, CLIPrinter is invoked with provided function
+        """
+        CLIPrinter.out(func(), self.args)
 
     def repositories_output_list_packer(self, repositories_dict) -> [(str, str, str)]:
         """
@@ -94,6 +99,13 @@ class GithubController:
                 raise ValueError(f"{check_qraphql_response(response)[1]}")
 
     def send_restful_request(self, endpoint, json_data, method='GET') -> Response:
+        """
+        Method sends REST request of provided type to provided endpoint with provided data
+        :param endpoint: REST endpoint
+        :param json_data: json to be sent
+        :param method: GET, POST, PUT or DELETE
+        :return: API response
+        """
         header = {"Authorization": f"token {self.api_key}"}
         if method == 'GET':
             with get(endpoint, json=json_data, headers=header) as response:
@@ -144,6 +156,10 @@ class GithubController:
 
     @deprecated
     def create_new_project(self):
+        """
+        Currently not in use
+        :return: Message describing operation result
+        """
         if not self.args.parameters:
             raise InvalidNumberOfArgumentsException()
 
@@ -184,7 +200,7 @@ class GithubController:
 
     def delete_repository(self) -> str:
         """
-        Delete repository
+        Deletes repository
         :return: Message describing operation result
         """
         if not self.args.parameters:
