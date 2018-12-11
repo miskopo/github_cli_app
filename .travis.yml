@@ -16,3 +16,5 @@ jobs:
         - python -m github -h
 after_success:
   - codecov
+  - coverage xml
+  - python-codacy-coverage -r coverage.xml
