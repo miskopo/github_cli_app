@@ -1,8 +1,6 @@
 from argparse import ArgumentParser
 from unittest import mock
 
-from pytest import raises
-
 from github.authentication import load_api_key, register_api_key
 from github.github_controller import GithubController
 
@@ -13,7 +11,7 @@ class Namespace:
 
 
 def setup_controller_and_parser(func):
-    parser = ArgumentParser()
+    parser = ArgumentParser(add_help=False)
     parser.add_argument("action", nargs=1)
     parser.add_argument("parameters", nargs="*")
     parser.add_argument("--both_urls", action="store_true")
@@ -66,13 +64,4 @@ def test_invalid(github_ctl, parser):
         github_ctl.args = parser.parse_args(["invalid"])
         assert not github_ctl.process_args()
         assert not mockingbird.called
-
-
-@setup_controller_and_parser
-def test_empty_args(github_ctl, parser):
-    with mock.patch.object(GithubController, 'execute_arg') as mockingbird:
-        with raises(SystemExit):
-            github_ctl.args = parser.parse_args([])
-            assert not github_ctl.process_args()
-            assert not mockingbird.called
 

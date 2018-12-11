@@ -66,7 +66,7 @@ class GithubController:
         """
         Executes function provided as argument
         :param func: function to be executed
-        :return: NOne, CLIPrinter is invoked with provided function
+        :return: None, CLIPrinter is invoked with provided function
         """
         CLIPrinter.out(func(), self.args)
 
