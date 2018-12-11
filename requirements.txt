@@ -4,3 +4,4 @@ colorama
 requests
 codecov
 coverage
+codacy-coverage
