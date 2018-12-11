@@ -9,7 +9,8 @@ arg_parser.add_argument("action",
                                  'list-my-repositories',
                                  'list-user-repositories',
                                  'create-repository',
-                                 'delete-repository'])
+                                 'delete-repository',
+                                 'create-project'])
 arg_parser.add_argument("parameters",
                         nargs="*",
                         help="Parameter of specified action, e.g. username, repository name etc.")

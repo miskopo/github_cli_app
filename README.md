@@ -43,7 +43,7 @@ execute `github` with following options and/or arguments `[ this means optional 
 - [x]  `list-user-repositories USERNAME `
 - [x]  `create-repository REPOSITORY_NAME [--private] [--description DESCRIPTION]`
 - [x]  `delete-repository REPOSITORY_NAME `
-- [ ]  `create-new-project REPOSITORY_NAME PROJECT_NAME`
+- [x]  `create-new-project REPOSITORY_NAME PROJECT_NAME`
 
 
 more to come!

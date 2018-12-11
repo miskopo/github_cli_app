@@ -25,6 +25,10 @@ class ViewerMutation:
     def obtain_viewer_login_query():
         return {'query': '{viewer {login}}'}
 
+    @staticmethod
+    def obtain_repository_id(repository_name: str):
+        return {'query': f'{{viewer {{repository (name: {repository_name}) {{ id }} }} }}'}
+
     def construct_query(self):
         attributes_as_string = [f'{k}: "{v}"' for k, v in self.payload[1].items()]
         self.query = f'mutation {{ {self.payload[0]}(input: ' \

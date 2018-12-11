@@ -4,8 +4,7 @@ from requests import post, get, delete, Response
 
 from .authentication import load_api_key, register_api_key
 from .cli_printer import CLIPrinter
-from .common import InvalidAPIKeyException, InvalidNumberOfArgumentsException, deprecated, \
-    check_qraphql_response
+from .common import InvalidAPIKeyException, InvalidNumberOfArgumentsException, check_qraphql_response
 from .logger import logger
 from .queries.graphQL_mutation import ViewerMutation
 from .queries.graphQL_query import ViewerQuery, UserQuery
@@ -154,29 +153,25 @@ class GithubController:
         except ValueError as e:
             return str(e)
 
-    @deprecated
     def create_new_project(self):
         """
-        Currently not in use
+        Creates new project under provided repository. Note: There can be multiple project with one name under one
+        repository
         :return: Message describing operation result
         """
-        if not self.args.parameters:
+        if len(self.args.parameters) != 2:
             raise InvalidNumberOfArgumentsException()
 
-        try:
-            # FIXME: Needs to work with repo id, not user id
-            logger.debug("Obtaining viewer's id")
-            viewer_id = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_id_query()).text)[
-                'data']['viewer']['id']
-        except ValueError as e:
-            return str(e)
+        repo_id = loads(self.send_graphql_request(ViewerMutation.obtain_repository_id(self.args.parameters[0])).text)[
+            'data']['viewer']['repository']['id']
+        logger.debug(f"ID of repository {self.args.parameters[0]} is {repo_id}")
         create_new_repository = ViewerMutation(
-            ('createProject', {'ownerId': viewer_id, 'name': self.args.parameters[0]}))
+            ('createProject', {'ownerId': repo_id, 'name': self.args.parameters[1]}))
         create_new_repository.construct_query()
         logger.debug(create_new_repository.__dict__())
         try:
             self.send_graphql_request(create_new_repository.__dict__())
-            return f"Repository created successfully"
+            return f"Project {self.args.parameters[1]} created successfully in repository {self.args.parameters[0]}"
         except ValueError as e:
             return str(e)
 
