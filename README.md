@@ -10,6 +10,7 @@
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/miskopo/github_cli_app.svg)
 [![Documentation Status](https://readthedocs.org/projects/github-cli-app/badge/?version=latest)](https://github-cli-app.readthedocs.io/en/latest/?badge=latest)
 [![Pypi](https://img.shields.io/pypi/v/github_cli_app.svg)](https://pypi.org/project/github_cli_app/)
+[![Libraries.io Source Rank](https://img.shields.io/librariesio/sourcerank/pypi/github_cli_app.svg)](https://libraries.io/pypi/github_cli_app)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/miskopo)
 
 Ever wanted to browse your repos through CLI? Or create a new one without the hassle of opening the browser? Now you can!
