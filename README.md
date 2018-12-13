@@ -29,13 +29,36 @@ There, in `Personal access tokens` section, create new token with full rights (y
 
 
 ### Installation  :whale:
-As this project is currently only available on Github :octocat:, you need to perform following steps:
 
-1. clone this repository and navigate to its root
+This project requires Python>=3.6
 
+
+#### From PyPI via `pip`
+execute in terminal
+
+`pip install github_cli_app`
+
+or in case you have both `python2` and `python3` installed
+
+`pip3 install github_cli_app`.
+
+It may also occur that you get error like `pip not found`, or so. In that case, make sure you have appropriate `python-pip` or `python3-pip` installed.
+If you have and it still doesn't work, execute following command
+
+`python -m pip install github_cli_app`
+
+or 
+
+`python3 -m pip isntall github_cli_app`
+
+#### From GitHub
+(for troubleshooting see Installation from PyPI)
+
+1. clone this repository (or download and extract release) and navigate to its root
 2. execute `pip install .`
 If you want to install only as a user, execute `pip install --user .`
 If you want to always use the newest version, execute `pip install -e .` (or also with user flag). This will allow executing `github` dynamically, so you can have new functionality with every `pull` .
+
 
 ### Features and usage :construction: 
 (tick marks implemented features) 
