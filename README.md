@@ -9,6 +9,7 @@
 ![Python versions](https://img.shields.io/badge/python-3.6|3.7-3776AB.svg?logo=python)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/miskopo/github_cli_app.svg)
 [![Documentation Status](https://readthedocs.org/projects/github-cli-app/badge/?version=latest)](https://github-cli-app.readthedocs.io/en/latest/?badge=latest)
+[![Pypi](https://img.shields.io/pypi/v/github_cli_app.svg)](https://pypi.org/project/github_cli_app/)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/miskopo)
 
 Ever wanted to browse your repos through CLI? Or create a new one without the hassle of opening the browser? Now you can!
@@ -19,7 +20,8 @@ create new repo for your next project, or to see URL of you existing projects, o
 
 Focus of this project is on simplicity - arguments are intuitive and provided as keywords (some flags are also available).
 
-### Requirements :rocket: 
+### Requirements :rocket:
+
 All you have to do (except installing this application, of course) is to register you API key within Github. To do so, navigate to your settings and choose `Developer settings`.
 There, in `Personal access tokens` section, create new token with full rights (you can actually omit rights you know you don't want to use). Copy this token and save it to file 
 `api_key` in project directory. **Beware, make sure no one shady gains access to it, as this key enables anyone to do anything with your Github account.**

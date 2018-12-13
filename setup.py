@@ -1,18 +1,17 @@
 from setuptools import setup
 
-with open('README.md') as file:
-    long_description = file.read()
-
 setup(
-    name='github',
-    version='0.1.0',
+    name='github_cli_app',
+    version='0.1.2a',
     author='Michal Polovka',
     author_email='michal.polovka@gmail.com',
     description='Command line interface for GitHub',
     download_url='https://github.com/miskopo/github_cli_app',
     url='https://github.com/miskopo/github_cli_app',
-    long_description='long_description',
+    long_description="CLI client for GitHub using APIv4 and APIv3. For details see Wiki on https://github.com/miskopo/github_cli_app/wiki",
+    platformis=['linux'],
     packages=['github'],
+    python_requires=">=3.6",
     entry_points={
         'console_scripts': [
             'github = github.__main__:main'
