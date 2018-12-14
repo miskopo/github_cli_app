@@ -50,29 +50,38 @@ def register_api_key():
     key
     :return: Informative string
     """
+
+    def register_the_key():
+        _api_key = getpass("Please copy-paste (or type) you API KEY and press return. Characters will not be shown: ")
+        if len(_api_key) != 40:
+            raise InvalidAPIKeyException("Invalid length of API KEY (should be 40 characters)")
+        try:
+            with open(f'{dirname(github.__file__)}/../api_key', "w") as key_file:
+                key_file.write(_api_key)
+                logger.info("API KEY written to api_key file")
+                return "API KEY successfully written to api_key file"
+        except PermissionError as e:
+            logger.error(str(e))
+            return f"Error occurred: {str(e)}, key not written"
+
     try:
         load_api_key()
         logger.debug("API_KEY found")
         print("API Key already exists. Would you like to:")
         print("1. Keep using already registered key (default)")
         print("2. Register new key")
-        while True:
+        attempts = 0
+        while attempts < 4:
             choice = input("Your choice? ([1], 2): ") or "1"
             if choice == "1":
                 return "Using already registered API KEY"
             elif choice == "2":
-                break
+                register_the_key()
+                return
             print("Invalid choice, please try again")
+            attempts += 1
+        return "Maximum attempts provided, exiting"
     except (FileNotFoundError, InvalidAPIKeyException):
-        pass
-    _api_key = getpass("Please copy-paste (or type) you API KEY and press return. Characters will not be shown: ")
-    if len(_api_key) != 40:
-        raise InvalidAPIKeyException("Invalid length of API KEY (should be 40 characters)")
-    try:
-        with open(f'{dirname(github.__file__)}/../api_key', "w") as key_file:
-            key_file.write(_api_key)
-            logger.info("API KEY written to api_key file")
-            return "API KEY successfully written to api_key file"
-    except PermissionError as e:
-        logger.error(str(e))
-        return f"Error occurred: {str(e)}, key not written"
+        register_the_key()
+
+

@@ -59,7 +59,7 @@ def test_valid_options(github_ctl, parser):
 
 
 @setup_controller_and_parser
-def test_invalid(github_ctl, parser):
+def test_invalid_option(github_ctl, parser):
     with mock.patch.object(GithubController, 'execute_arg') as mockingbird:
         github_ctl.args = parser.parse_args(["invalid"])
         assert not github_ctl.process_args()
