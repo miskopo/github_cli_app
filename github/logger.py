@@ -12,7 +12,7 @@ logger.setLevel(DEBUG)
 # create console handler
 console_debug_handler = StreamHandler(stream=stdout)
 console_debug_handler.setLevel(DEBUG)
-file_debug_handler = FileHandler(f'{dirname(github.__file__)}/../logs/debug.log')
+file_debug_handler = FileHandler(filename='{dirname(github.__file__)}/../logs/debug.log', mode='a')
 file_debug_handler.setLevel(DEBUG)
 
 
