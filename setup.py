@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from setuptools import setup
 
 setup(
@@ -10,7 +11,7 @@ setup(
     url='https://github.com/miskopo/github_cli_app',
     long_description="CLI client for GitHub using APIv4 and APIv3. For details see Wiki on https://github.com/miskopo/github_cli_app/wiki",
     platforms=['linux'],
-    packages=['github'],
+    packages=['github', 'github.common'],
     python_requires=">=3.6",
     entry_points={
         'console_scripts': [
