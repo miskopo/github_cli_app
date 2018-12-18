@@ -1,3 +1,6 @@
+from abc import abstractmethod
+
+
 class BaseQueryClass:
     __slots__ = 'payload', 'query'
     MAX_RESULTS = 50
@@ -18,6 +21,10 @@ class BaseQueryClass:
 
     def __dict__(self):
         return {'query': self.query}
+
+    @abstractmethod
+    def construct_query(self):
+        raise NotImplementedError
 
 
 class ViewerQuery(BaseQueryClass):
