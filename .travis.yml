@@ -8,6 +8,7 @@ jobs:
   - stage: test
     script:
     - python -m pytest --cov=./github --capture=sys -vv
+    - python -m pytest --cov=./github --capture=sys -vv
   - stage: installation
     script:
     - pip install -e .
