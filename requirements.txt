@@ -1,5 +1,4 @@
 pytest
-pytest-cov>=2.6.1
 colorama
 requests
 codecov
