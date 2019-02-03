@@ -7,6 +7,14 @@ github/authentication.py
 github/cli_printer.py
 github/github_controller.py
 github/logger.py
+github/common/InvalidAPIKeyException.py
+github/common/InvalidNumberOfArgumentsException.py
+github/common/__init__.py
+github/common/deprecated_decorator.py
+github/common/graphql_utils.py
+github/common/rest_utils.py
+github/queries/graphQL_mutation.py
+github/queries/graphQL_query.py
 github_cli_app.egg-info/PKG-INFO
 github_cli_app.egg-info/SOURCES.txt
 github_cli_app.egg-info/dependency_links.txt

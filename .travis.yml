@@ -1,20 +1,29 @@
 language: python
 python:
-  - "3.6"
+- '3.6'
 install:
-  - pip install -r requirements.txt
+- pip install -r requirements.txt
 jobs:
   include:
-    - stage: test
-      script:
-        - python -m pytest  --cov=./github --capture=sys -vv
-    - stage: installation
-      script:
-        - pip install -e .
-    - stage: run
-      script:
-        - python -m github -h
+  - stage: test
+    script:
+    - python -m pytest  --cov=./github --capture=sys -vv
+  - stage: installation
+    script:
+    - pip install -e .
+  - stage: run
+    script:
+    - python -m github -h
 after_success:
-  - codecov
-  - coverage xml
-  - python-codacy-coverage -r coverage.xml
+- codecov
+- coverage xml
+- python-codacy-coverage -r coverage.xml
+deploy:
+  provider: pypi
+  username: miskopo
+  password:
+    secure: Kns04kF4REYuYpJYCfpcAvbKPvyNfxphakDs9+joWmKzXM0ueOIR3YdZAtjbMHWhj1RY971dDGbcMpm8b72PKDctiaqzPGufJLb95rANeItiMqV2fvNhS7HLV29fmpzVrPqRe2BdZcVO6x7hC9DCDEt9L25lQW3082+2f44ZMcrskN9ZDlfRM4IgiYQAmZK5edY/6gFmuJuaW1V0fdc3dTqvCDUj+u7OhS79zr1U6Am2Yb9un1L6ypKH8VewgR5GgeRCho7QrJfVLmhFBTUBwi6XCFdrIYBvlxxt6DKgoEnenZWmAbTVJvCXd4PSngCvMQ6ffVQUpqytn6ED15zDrKczzk2o8wHqVu6ZPtwCU/xj6COwJv/xTCr0HMX42qfJCNfmsQOrBUb9Q7SJ3Q9vJGEn9KdDiVRNHpgowjWqcThWgJ9JlTPDhW6/CAKsyXL8Uvil80I1ESLehhPxm19JULgU3M0NJNUdLVt1ckS2DQve+lae1tkaaF2FXR+N2rQNVNlYzgfDmvmLafsE7t5vpT4nOJHoI6l48ZBs0sjCinb+SdhQqfgpPO9UmpdjlSmP59yjHPPxYXeoQZmVuEYMGQ2KR4uFq0U675vpqClEJwUrRX8T4TlAVohPYlv72KCRjw/n+cK/nREgAi7ZDMMXNd8TR+IwKbN5fLZNEmfoW3o=
+  skip_existing: true
+  on:
+    tags: true
+

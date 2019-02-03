@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='github_cli_app',
-    version='0.1.2',
+    version='0.1.3',
     author='Michal Polovka',
     author_email='michal.polovka@gmail.com',
     description='Command line interface for GitHub',

@@ -49,7 +49,7 @@ If you have and it still doesn't work, execute following command
 
 or 
 
-`python3 -m pip isntall github_cli_app`
+`python3 -m pip install github_cli_app`
 
 #### From GitHub
 (for troubleshooting see Installation from PyPI)
