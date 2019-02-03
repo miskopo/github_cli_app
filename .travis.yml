@@ -7,7 +7,7 @@ jobs:
   include:
   - stage: test
     script:
-    - python -m pytest  --cov=./github --capture=sys -vv
+    - python -m pytest  --capture=sys -vv
   - stage: installation
     script:
     - pip install -e .
@@ -15,7 +15,6 @@ jobs:
     script:
     - python -m github -h
 after_success:
-- codecov
 - coverage xml
 - python-codacy-coverage -r coverage.xml
 deploy:
