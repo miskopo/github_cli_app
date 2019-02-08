@@ -25,6 +25,7 @@ def setup_controller_and_parser(func):
     parser.add_argument("--https", action="store_true")
     parser.add_argument("--private", action="store_true")
     parser.add_argument("--description")
+    parser.add_argument("--no_confirm", action="store_true")
     api_key = load_api_key()
     github_ctl = GithubController(None, api_key)
 
@@ -130,7 +131,7 @@ def test_delete_repository(github_ctl, parser):
             with raises(InvalidNumberOfArgumentsException):
                 github_ctl.delete_repository()
 
-            github_ctl.args = parser.parse_args(["action", "deleted_repo"])
+            github_ctl.args = parser.parse_args(["action", "deleted_repo", "--no_confirm"])
             assert all(x in github_ctl.delete_repository().lower() for x in ["deleted_repo", "deleted"])
 
             restful_mockingbird.return_value = Namespace(status_code=404, text='{"message": "Not found"}')

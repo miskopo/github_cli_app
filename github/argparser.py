@@ -38,6 +38,10 @@ arg_parser.add_argument("--private",
                         action="store_true",
                         help="Create repository as private",
                         default=False)
+arg_parser.add_argument("--no_confirm",
+                        help="Disable confirmation dialogs",
+                        action="store_true",
+                        default=False)
 
 
 def init_args():

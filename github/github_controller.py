@@ -204,8 +204,9 @@ class GithubController:
         viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_login_query()).text)['data'][
             'viewer']['login']
         repo_to_delete = self.args.parameters[0]
-        if CLIHandler.confirm_action(text_query=f"Are you sure you want to delete repository {repo_to_delete}? "
-                                                "This action cannot be undone."):
+        if self.args.no_confirm or CLIHandler.confirm_action(
+                text_query=f"Are you sure you want to delete repository {repo_to_delete}? "
+                f"This action cannot be undone."):
             response = self.send_restful_request(endpoint=
                                                  f"{self.rest_api_endpoint}/repos/{viewer_login}/{repo_to_delete}",
                                                  json_data=None, method='DELETE')
