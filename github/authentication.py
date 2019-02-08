@@ -83,5 +83,3 @@ def register_api_key():
         return "Maximum attempts provided, exiting"
     except (FileNotFoundError, InvalidAPIKeyException):
         register_the_key()
-
-

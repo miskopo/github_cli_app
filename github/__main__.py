@@ -1,6 +1,6 @@
+from .argparser import init_args
 from .github_controller import GithubController
 from .logger import logger
-from .argparser import init_args
 
 
 def main():

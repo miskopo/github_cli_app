@@ -5,7 +5,7 @@
 #
 # string PIP
 #
-# path to pip application, can be overriden using external variable passed to
+# path to pip application, can be overridden using external variable passed to
 # script
 #
 

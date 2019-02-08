@@ -3,7 +3,7 @@ from json import loads
 from requests import post, get, delete, Response
 
 from .authentication import load_api_key, register_api_key
-from .cli_printer import CLIPrinter
+from .cli_handler import CLIHandler
 from .common import InvalidAPIKeyException, InvalidNumberOfArgumentsException, check_qraphql_response
 from .logger import logger
 from .queries.graphQL_mutation import ViewerMutation
@@ -67,7 +67,7 @@ class GithubController:
         :param func: function to be executed
         :return: None, CLIPrinter is invoked with provided function
         """
-        CLIPrinter.out(func(), self.args)
+        CLIHandler.out(func(), self.args)
 
     def repositories_output_list_packer(self, repositories_dict) -> [(str, str, str)]:
         """
@@ -203,11 +203,16 @@ class GithubController:
 
         viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_login_query()).text)['data'][
             'viewer']['login']
-        response = self.send_restful_request(endpoint=
-                                             f"{self.rest_api_endpoint}/repos/{viewer_login}/{self.args.parameters[0]}",
-                                             json_data=None, method='DELETE')
-        if response.status_code == 204:
-            return f"Repository {self.args.parameters[0]} was deleted successfully"
+        repo_to_delete = self.args.parameters[0]
+        if CLIHandler.confirm_action(text_query=f"Are you sure you want to delete repository {repo_to_delete}? "
+                                                "This action cannot be undone."):
+            response = self.send_restful_request(endpoint=
+                                                 f"{self.rest_api_endpoint}/repos/{viewer_login}/{repo_to_delete}",
+                                                 json_data=None, method='DELETE')
+            if response.status_code == 204:
+                return f"Repository {self.args.parameters[0]} was deleted successfully"
+            else:
+                return f"Unable to delete repository {self.args.parameters[0]}: {loads(response.text)['message']}"
         else:
-            return f"Unable to delete repository {self.args.parameters[0]}: {loads(response.text)['message']}"
+            return "Aborted"
 

@@ -4,7 +4,7 @@ from unittest import mock
 from pytest import raises
 
 from github.common import InvalidAPIKeyException
-from github.github_controller import GithubController, CLIPrinter
+from github.github_controller import GithubController, CLIHandler
 
 
 class Namespace:
@@ -140,7 +140,7 @@ def test_restful_request(github_ctl, parser):
 
 @setup_controller_and_parser
 def test_execute_args(github_ctl, parser):
-    with mock.patch.object(CLIPrinter, 'out') as mockingbird:
+    with mock.patch.object(CLIHandler, 'out') as mockingbird:
         mockingbird.return_value = True
         github_ctl.args = parser.parse_args(["dummy"])
 
