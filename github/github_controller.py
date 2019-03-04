@@ -245,4 +245,10 @@ class GithubController:
         response = self.send_restful_request(endpoint=
                                              f"{self.rest_api_endpoint}/repos/{viewer_login}/{repo_name}/pulls",
                                              json_data=json, method='POST')
-        return ""
+        if response.status_code == 201:
+            return f"Pull request {title} created in repository {repo_name}.\nView pull request: " \
+                f"{loads(response.text)['url']}"
+        else:
+            return f"Unable to create pull request in {repo_name}: {loads(response.text)['message']}"
+
+    # TODO: verify(desired status, pass message, fail message)
