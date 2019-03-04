@@ -10,7 +10,6 @@
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/miskopo/github_cli_app.svg)
 [![Documentation Status](https://readthedocs.org/projects/github-cli-app/badge/?version=latest)](https://github-cli-app.readthedocs.io/en/latest/?badge=latest)
 [![Pypi](https://img.shields.io/pypi/v/github_cli_app.svg)](https://pypi.org/project/github_cli_app/)
-[![Libraries.io Source Rank](https://img.shields.io/librariesio/sourcerank/pypi/github_cli_app.svg)](https://libraries.io/pypi/github_cli_app)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/miskopo)
 
 Ever wanted to browse your repos through CLI? Or create a new one without the hassle of opening the browser? Now you can!
@@ -70,6 +69,7 @@ execute `github` with following options and/or arguments `[ this means optional 
 - [x]  `create-repository REPOSITORY_NAME [--private] [--description DESCRIPTION]`
 - [x]  `delete-repository REPOSITORY_NAME `
 - [x]  `create-new-project REPOSITORY_NAME PROJECT_NAME`
+- [x]  `create-pull-request REPOSITORY_NAME PR_TITLE PR_HEAD_BRANCH PR_TARGET_BRANCH [PR_BODY]`
 
 
 more to come!
