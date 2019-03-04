@@ -121,6 +121,18 @@ class GithubController:
             response = None
         return response
 
+    @staticmethod
+    def verify_status(*, response: Response, expected_status: int, pass_message: str, fail_message: str) -> str:
+        """
+        Verifies whether REST response has desired status and return appropriate message
+        :param response: REST response
+        :param expected_status: status which is considered as desired
+        :param pass_message: message to return if status is desired
+        :param fail_message: message to return if status is not as desired one
+        :return: message depending on response's status code
+        """
+        return pass_message if response.status_code == expected_status else fail_message
+
     def list_my_repositories(self):
         """
         Methods lists repositories of current user authenticated by API key
@@ -212,10 +224,11 @@ class GithubController:
             response = self.send_restful_request(endpoint=
                                                  f"{self.rest_api_endpoint}/repos/{viewer_login}/{repo_to_delete}",
                                                  json_data=None, method='DELETE')
-            if response.status_code == 204:
-                return f"Repository {self.args.parameters[0]} was deleted successfully"
-            else:
-                return f"Unable to delete repository {self.args.parameters[0]}: {loads(response.text)['message']}"
+            return self.verify_status(response=response,
+                                      expected_status=204,
+                                      pass_message=f"Repository {self.args.parameters[0]} was deleted successfully",
+                                      fail_message=f"Unable to delete repository "
+                                      f"{self.args.parameters[0]}: {loads(response.text)['message']}")
         else:
             return "Aborted"
 
@@ -252,5 +265,3 @@ class GithubController:
             message = loads(response.text)['message']
             error = loads(response.text)['errors'][0]['message']
             return f"Unable to create pull request in {repo_name}: {message} - {error}"
-
-    # TODO: verify(desired status, pass message, fail message)
