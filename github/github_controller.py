@@ -249,6 +249,8 @@ class GithubController:
             return f"Pull request {title} created in repository {repo_name}.\nView pull request: " \
                 f"{loads(response.text)['url']}"
         else:
-            return f"Unable to create pull request in {repo_name}: {loads(response.text)['message']}"
+            message = loads(response.text)['message']
+            error = loads(response.text)['errors'][0]['message']
+            return f"Unable to create pull request in {repo_name}: {message} - {error}"
 
     # TODO: verify(desired status, pass message, fail message)

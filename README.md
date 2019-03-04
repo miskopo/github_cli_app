@@ -1,10 +1,11 @@
 ## :octocat: Github CLI application
 [![Build Status](https://img.shields.io/travis/miskopo/github_cli_app.svg?logo=travis-ci)](https://travis-ci.org/miskopo/github_cli_app)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/e2df8b89fe57485b8a9b798af0578acc)](https://www.codacy.com/app/miskopo/github_cli_app?utm_source=github.com&utm_medium=referral&utm_content=miskopo/github_cli_app&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2df8b89fe57485b8a9b798af0578acc)](https://www.codacy.com/app/miskopo/github_cli_app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=miskopo/github_cli_app&amp;utm_campaign=Badge_Grade)
 ![License](https://img.shields.io/github/license/miskopo/github_cli_app.svg)
 ![GitHub commit activity the past week](https://img.shields.io/github/commit-activity/w/miskopo/github_cli_app.svg)
 [![Requirements Status](https://requires.io/github/miskopo/github_cli_app/requirements.svg?branch=master)](https://requires.io/github/miskopo/github_cli_app/requirements/?branch=master)
 ![Platform](https://img.shields.io/badge/platform-linux-%23FCC624.svg?logo=linux)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2df8b89fe57485b8a9b798af0578acc)](https://www.codacy.com/app/miskopo/github_cli_app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=miskopo/github_cli_app&amp;utm_campaign=Badge_Grade)
 ![Python versions](https://img.shields.io/badge/python-3.6|3.7-3776AB.svg?logo=python)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/miskopo/github_cli_app.svg)
 [![Documentation Status](https://readthedocs.org/projects/github-cli-app/badge/?version=latest)](https://github-cli-app.readthedocs.io/en/latest/?badge=latest)
