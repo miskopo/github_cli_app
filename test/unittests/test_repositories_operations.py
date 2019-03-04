@@ -122,7 +122,7 @@ def test_delete_repository(github_ctl, parser):
     with mock.patch.object(GithubController, 'send_restful_request') as restful_mockingbird:
         with mock.patch.object(GithubController, 'send_graphql_request') as username_mock:
             username_mock.return_value = Namespace(text='{"data": {"viewer": {"login": "mock_user"}}}')
-            restful_mockingbird.return_value = Namespace(status_code=204)
+            restful_mockingbird.return_value = Namespace(status_code=204, text='{"message": "very_random"}')
             github_ctl.args = parser.parse_args([""])
             with raises(InvalidNumberOfArgumentsException):
                 github_ctl.delete_repository()
