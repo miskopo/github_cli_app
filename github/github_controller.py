@@ -52,8 +52,10 @@ class GithubController:
             'list-my-repositories': self.list_my_repositories,
             'list-user-repositories': self.list_user_repositories,
             'create-repository': self.create_new_repository,
+            'create-new-repository': self.create_new_repository,
             'delete-repository': self.delete_repository,
-            'create-project': self.create_new_project
+            'create-project': self.create_new_project,
+            'create-pull-request': self.create_pull_request
         }
 
         if self.args and self.args.action and self.args.action[0] in actions_dict.keys():
@@ -142,7 +144,7 @@ class GithubController:
         """
 
         if not self.args.parameters:
-            raise InvalidNumberOfArgumentsException()
+            raise InvalidNumberOfArgumentsException("Parameters required: username")
 
         list_user_repositories = UserQuery(('repositories', ['name', 'url', 'sshUrl']),
                                            username=self.args.parameters[0])
@@ -160,7 +162,7 @@ class GithubController:
         :return: Message describing operation result
         """
         if len(self.args.parameters) != 2:
-            raise InvalidNumberOfArgumentsException()
+            raise InvalidNumberOfArgumentsException("Parameters required: repository_name project_name")
 
         repo_id = loads(self.send_graphql_request(ViewerMutation.obtain_repository_id(self.args.parameters[0])).text)[
             'data']['viewer']['repository']['id']
@@ -181,7 +183,7 @@ class GithubController:
         :return: Message describing operation result
         """
         if not self.args.parameters:
-            raise InvalidNumberOfArgumentsException()
+            raise InvalidNumberOfArgumentsException("Parameters required: repository_name")
 
         json = {"name": self.args.parameters[0],
                 "description": self.args.description[0] if self.args.description else "",
@@ -199,7 +201,7 @@ class GithubController:
         :return: Message describing operation result
         """
         if not self.args.parameters:
-            raise InvalidNumberOfArgumentsException()
+            raise InvalidNumberOfArgumentsException("Parameters required: repository_name")
 
         viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_login_query()).text)['data'][
             'viewer']['login']
@@ -217,3 +219,16 @@ class GithubController:
         else:
             return "Aborted"
 
+    def create_pull_request(self) -> str:
+        if len(self.args.parameters) <= 3:
+            raise InvalidNumberOfArgumentsException("Parameters required: title head base [body]")
+
+        viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_login_query()).text)['data'][
+            'viewer']['login']
+
+        title = self.args.parameters[0]
+        head = self.args.parameters[1]
+        base = self.args.parameters[2]
+        body = self.args.parameters[3] if len(self.args.parameters) >= 4 else ""
+
+        return ""

@@ -6,8 +6,10 @@ actions = ['register',
            'list-my-repositories',
            'list-user-repositories',
            'create-repository',
+           'create-new-repository',
            'delete-repository',
-           'create-project']
+           'create-project',
+           'create-pull-request']
 
 arg_parser.add_argument("action",
                         nargs=1,
