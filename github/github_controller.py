@@ -220,15 +220,29 @@ class GithubController:
             return "Aborted"
 
     def create_pull_request(self) -> str:
+        """
+        Creates pull request for branch and given base
+        :return: Message describing operation result
+        """
         if len(self.args.parameters) <= 3:
-            raise InvalidNumberOfArgumentsException("Parameters required: title head base [body]")
+            raise InvalidNumberOfArgumentsException("Parameters required: repository_name title "
+                                                    "head_branch base_branch [body]")
 
         viewer_login = loads(self.send_graphql_request(ViewerMutation.obtain_viewer_login_query()).text)['data'][
             'viewer']['login']
 
-        title = self.args.parameters[0]
-        head = self.args.parameters[1]
-        base = self.args.parameters[2]
-        body = self.args.parameters[3] if len(self.args.parameters) >= 4 else ""
+        repo_name = self.args.parameters[0]
+        title = self.args.parameters[1]
+        head = self.args.parameters[2]
+        base = self.args.parameters[3]
+        body = self.args.parameters[4] if len(self.args.parameters) >= 5 else ""
 
+        json = {"title": title,
+                "body": body,
+                "head": head,
+                "base": base}
+
+        response = self.send_restful_request(endpoint=
+                                             f"{self.rest_api_endpoint}/repos/{viewer_login}/{repo_name}/pulls",
+                                             json_data=json, method='POST')
         return ""
