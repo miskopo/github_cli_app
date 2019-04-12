@@ -227,10 +227,12 @@ class GithubController:
             return self.verify_status(response=response,
                                       expected_status=204,
                                       pass_message=f"Repository {self.args.parameters[0]} was deleted successfully",
-                                      fail_message=f"Unable to delete repository "
-                                      f"{self.args.parameters[0]}: {loads(response.text)['message']}")
+                                      fail_message=f"Unable to delete repository"
+                                      f"{self.args.parameters[0]}: {loads(response.text)['message']}" if response.text
+                                      else "")
+
         else:
-            return "Aborted"
+            return "Aborted, no repo was deleted"
 
     def create_pull_request(self) -> str:
         """
