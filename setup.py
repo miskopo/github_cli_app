@@ -6,7 +6,7 @@ with open('requirements.txt') as req_file:
 
 setup(
     name='github_cli_app',
-    version='1.0.0',
+    version='1.0.1',
     author='Michal Polovka',
     author_email='michal.polovka@gmail.com',
     description='Command line interface for GitHub',
