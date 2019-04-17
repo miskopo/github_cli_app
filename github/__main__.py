@@ -12,11 +12,12 @@ def main():
         logger.debug("Spawning github ctl")
         github_ctl = GithubController(args)
         github_ctl()
+    except KeyboardInterrupt:
+        CLIHandler.out("Interrupted by user. Exiting.", None)
+        exit(1)
     except Exception as e:
-        # TODO: Refactor
-        # Top level handling - recoverable exceptions are handled in situ
-        args = init_args()
-        CLIHandler.out(str(e), args)
+        # Top level handling - recoverable exceptions are handled inplace
+        CLIHandler.out(str(e), None)
         exit(1)
 
 

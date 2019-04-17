@@ -20,7 +20,10 @@ def setup_controller_and_parser(func):
     parser.add_argument("--private", action="store_true")
     parser.add_argument("--no_numbers", action="store_true")
     parser.add_argument("--description")
-    api_key = load_api_key()
+    try:
+        api_key = load_api_key()
+    except FileNotFoundError:
+        api_key = "01234567890123456789012345667890123456789"
     github_ctl = GithubController(None, api_key)
 
     def inner():

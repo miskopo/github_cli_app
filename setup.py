@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 from setuptools import setup
 
-requirements = []
 with open('requirements.txt') as req_file:
-    requirements.append(req_file.readline())
+    requirements: list = req_file.readlines()
 
 setup(
     name='github_cli_app',
-    version='0.1.5',
+    version='1.0.0',
     author='Michal Polovka',
     author_email='michal.polovka@gmail.com',
     description='Command line interface for GitHub',
@@ -22,5 +21,5 @@ setup(
     entry_points={
         'console_scripts': [
             'github = github.__main__:main'
-         ]
+        ]
     })
