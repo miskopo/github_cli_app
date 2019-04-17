@@ -13,6 +13,7 @@ def main():
         github_ctl = GithubController(args)
         github_ctl()
     except Exception as e:
+        # TODO: Refactor
         # Top level handling - recoverable exceptions are handled in situ
         args = init_args()
         CLIHandler.out(str(e), args)

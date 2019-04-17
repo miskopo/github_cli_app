@@ -1,4 +1,4 @@
-pytest==4.0.1
+pytest
 pytest-cov
 colorama
 requests
