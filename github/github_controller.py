@@ -20,9 +20,9 @@ class GithubController:
         self.args = args
 
     def __call__(self, *args, **kwargs):
-        if not self.api_key and not self.obtain_api_key():
-            # if self.args and self.args.action[0] == 'register':
-            # register_api_key()
+        if self.args and self.args.action and self.args.action[0] == 'register':
+            register_api_key()
+        elif not self.api_key and not self.obtain_api_key():
             return False
         return self.process_args()
 
