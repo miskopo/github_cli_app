@@ -6,7 +6,7 @@ with open('requirements.txt') as req_file:
 
 setup(
     name='github_cli_app',
-    version='1.0.1',
+    version='v1.0.2',
     author='Michal Polovka',
     author_email='michal.polovka@gmail.com',
     description='Command line interface for GitHub',
@@ -15,6 +15,7 @@ setup(
     long_description="CLI client for GitHub using APIv4 and APIv3. For details see Wiki on "
                      "https://github.com/miskopo/github_cli_app/wiki",
     platforms=['linux'],
+    license="GPL",
     install_requires=requirements,
     packages=['github', 'github.common', 'github.queries'],
     python_requires=">=3.6",
