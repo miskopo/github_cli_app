@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 from setuptools import setup
 
-with open('requirements.txt') as req_file:
-    requirements: list = req_file.readlines()
+requirements = [
+    "pytest==4.0.1",
+    "pytest-cov",
+    "colorama",
+    "requests",
+    "codecov",
+    "coverage",
+    "codacy-coverage"]
 
 setup(
     name='github_cli_app',
-    version='1.0.4',
+    version='1.0.7',
     author='Michal Polovka',
     author_email='michal.polovka@gmail.com',
     description='Command line interface for GitHub',
